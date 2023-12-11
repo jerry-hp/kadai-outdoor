@@ -5,6 +5,10 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import api from "../libs/api";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { login } from "../redux/slice";
+import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
+import { app } from "./../firebase";
 
 const schema = yup
   .object({
@@ -51,6 +55,27 @@ function SignUp() {
     }
   };
 
+  const dispatch = useDispatch();
+  const handleGoogle = async () => {
+    try {
+      const Provider = new GoogleAuthProvider();
+      const auth = getAuth(app);
+
+      const result = await signInWithPopup(auth, Provider);
+      console.log("resultttt:", result.user);
+      const dataUser = {
+        username: result.user.displayName,
+        email: result.user.email,
+        image: result.user.photoURL,
+      };
+      const res = await api.post("/google-sign-in", dataUser);
+      dispatch(login(res.data));
+      navigate("/");
+    } catch (err: any) {
+      console.log(err);
+    }
+  };
+
   return (
     <div>
       <form onSubmit={handleSubmit(handleSignUp)} className="flex flex-col gap-3 max-w-sm mx-auto mt-20 text-[-[#0B2545] ">
@@ -67,7 +92,7 @@ function SignUp() {
           {isSubmitting ? "Please wait..." : "Sign up"}
         </button>
         <div className=" flex gap-2 items-center justify-between before:content-[''] before:block before:h-[1px] before:bg-[#0B2545] before:w-full after:content-[''] after:block after:h-[1px] after:bg-[#0B2545] after:w-full">or</div>
-        <button className=" p-2 rounded-lg bg-red-500 hover:opacity-80  text-[#EEF4ED]" type="button">
+        <button onClick={handleGoogle} className=" p-2 rounded-lg bg-red-500 hover:opacity-80  text-[#EEF4ED]" type="button">
           Sign in with Google
         </button>
         <p className="text-[#0B2545]">

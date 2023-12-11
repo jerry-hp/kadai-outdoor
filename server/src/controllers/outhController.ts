@@ -11,4 +11,8 @@ export default new (class OuthController {
   async signIn(req: Request, res: Response): Promise<Response> {
     return await OauthService.SignIn(req, res);
   }
+
+  async googleSignIn(req: Request, res: Response): Promise<Response> {
+    return await OauthService.googleSignIn(req, res);
+  }
 })();

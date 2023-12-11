@@ -3,7 +3,10 @@ import { User } from "../entities/user";
 import { AppDataSource } from "../data-source";
 import { Request, Response } from "express";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+import { config } from "dotenv";
 
+config();
 export default new (class OauthService {
   private readonly userRepository: Repository<User> = AppDataSource.getRepository(User);
 
@@ -43,7 +46,19 @@ export default new (class OauthService {
       const passwordMatch = await bcrypt.compare(password, user.password);
       if (!passwordMatch) return res.status(400).json({ message: "password not match" });
 
-      return res.status(200).json({ message: "user signed in", user });
+      const token = jwt.sign({ email }, process.env.JWT_SECRET_KEY, { expiresIn: "1h" });
+      return res.status(200).json({ message: "user signed in", user, token });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async googleSignIn(req: Request, res: Response): Promise<Response> {
+    try {
+      const { username, email, image } = req.body;
+      const token = jwt.sign({ email }, process.env.JWT_SECRET_KEY, { expiresIn: "1h" });
+
+      return res.status(200).json({ message: "user signed in", user: { username, email, image }, token });
     } catch (error) {
       console.log(error);
     }
