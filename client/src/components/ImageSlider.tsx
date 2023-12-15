@@ -1,4 +1,4 @@
-import tes from "../assets/ImageSlider/1.png";
+import tes from "../assets/ImageSlider/1.jpg";
 import { MdOutlineArrowBackIosNew, MdOutlineArrowForwardIos } from "react-icons/md";
 import { GoDotFill } from "react-icons/go";
 import { useState } from "react";
