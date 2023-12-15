@@ -1,6 +1,3 @@
-import { Repository } from "typeorm";
-import { AppDataSource } from "../data-source";
-import { User } from "../entities/user";
 import { Request, Response } from "express";
 import OauthService from "../service/OauthService";
 

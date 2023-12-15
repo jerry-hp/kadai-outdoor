@@ -53,7 +53,6 @@ function SignIn() {
       const auth = getAuth(app);
 
       const result = await signInWithPopup(auth, Provider);
-      console.log("resultttt:", result.user);
       const dataUser = {
         username: result.user.displayName,
         email: result.user.email,

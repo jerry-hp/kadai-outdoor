@@ -16,4 +16,13 @@ export class User {
 
   @Column({ nullable: true, default: "https://th.bing.com/th/id/OIP.Nen6j3vBZdl8g8kzNfoEHQAAAA?rs=1&pid=ImgDetMain" })
   image: string;
+
+  @Column({ default: "Costumer" })
+  role: string;
+
+  @Column({ nullable: true })
+  address: string;
+
+  @Column({ nullable: true })
+  phone: string;
 }
