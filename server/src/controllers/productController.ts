@@ -5,6 +5,11 @@ export default new (class ProductController {
   async getProducts(req: Request, res: Response): Promise<Response> {
     return await ProductService.getProducts(req, res);
   }
+
+  async getproductByParams(req: Request, res: Response): Promise<Response> {
+    return await ProductService.getproductByParams(req, res);
+  }
+
   async createProduct(req: Request, res: Response): Promise<Response> {
     return await ProductService.createProduct(req, res);
   }

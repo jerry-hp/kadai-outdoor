@@ -8,8 +8,23 @@ export default new (class ProductRepository {
 
   async getProducts(req: Request, res: Response): Promise<Response> {
     try {
-      const products = await this.productRepository.find();
+      const products = await this.productRepository.find({ relations: ["product_size"] });
       return res.status(200).json({ products });
+    } catch (error) {
+      return res.status(500).json({ error });
+    }
+  }
+
+  async getproductByParams(req: Request, res: Response): Promise<Response> {
+    try {
+      const { category } = req.params;
+      if (category === "clothes") {
+        const products = await this.productRepository.find({ where: [{ product_category: "jacket" }, { product_category: "shirt" }], relations: ["product_size"] });
+        return res.status(200).json({ products });
+      } else {
+        const products = await this.productRepository.find({ where: { product_category: category }, relations: ["product_size"] });
+        return res.status(200).json({ products });
+      }
     } catch (error) {
       return res.status(500).json({ error });
     }

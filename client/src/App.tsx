@@ -10,6 +10,7 @@ import { PersistGate } from "redux-persist/integration/react";
 import { persistor } from "./redux/store";
 import Profile from "./pages/Profile";
 import { QueryClientProvider, QueryClient } from "react-query";
+import FilterProducts from "./pages/FilterProducts";
 
 const queryClient = new QueryClient();
 function App() {
@@ -23,6 +24,7 @@ function App() {
               <Routes>
                 <Route element={<PrivateRoute />}>
                   <Route path="/" element={<Home />} />
+                  <Route path="/products/:category" element={<FilterProducts />} />
                   <Route path="/profile" element={<Profile />} />
                 </Route>
                 <Route path="/sign-in" element={<SignIn />} />
