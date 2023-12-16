@@ -6,13 +6,14 @@ import logoConsina from "../assets/consina.png";
 import { MdArrowRight } from "react-icons/md";
 function FilterProducts() {
   const { filteredProducts, isLoading, isError, category } = useFilterProducts();
+  const plural = category == "clothes" || category === "shoes" ? "" : "s";
   return (
     <div className=" box-border max-w-6xl mx-auto  min-h-screen ">
       <div className="text-[#0B2545] text-xl font-bold my-1 sm:my-2 flex items-center ">
         Category
         <MdArrowRight />
         {category}
-        {category !== "clothes" ? "s" : ""}
+        {plural}
       </div>
       {/* card */}
       <div className="my-1 sm:my-3 flex justify-between gap-2 flex-wrap">

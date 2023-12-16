@@ -42,7 +42,7 @@ function Home() {
               <GiRunningShoe className="mx-auto text-3xl sm:text-5xl" />
               <p className="font-normal sm:font-bold text-center">Shoes</p>
             </div>
-            <div onClick={() => goToProductDetail("slippers")} className="item1 text-[#0B2545] w-[15%] sm:w-[15%] py-2 sm:py-3 bg-[RGBA(255,255,255,0.1)] rounded-lg cursor-pointer">
+            <div onClick={() => goToProductDetail("slipper")} className="item1 text-[#0B2545] w-[15%] sm:w-[15%] py-2 sm:py-3 bg-[RGBA(255,255,255,0.1)] rounded-lg cursor-pointer">
               <GiSlippers className="mx-auto text-3xl sm:text-5xl" />
               <p className="font-normal sm:font-bold text-center">Slippers</p>
             </div>
