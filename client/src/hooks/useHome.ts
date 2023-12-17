@@ -3,13 +3,25 @@ import { useQuery } from "react-query";
 import api from "../libs/api";
 import { product } from "../types";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 function useHome() {
   const [isMen, setIsMen] = useState(true);
   //api all products
-  const { data, isLoading, isError } = useQuery("products", async () => {
+  const { data, isLoading, isError, refetch } = useQuery("products", async () => {
     const res = await api.get("/products");
-    return res.data.products;
+    const data = res.data.products.filter((item: product) => {
+      if (isMen) {
+        return item.product_gender === "men";
+      } else {
+        return item.product_gender === "women";
+      }
+    });
+    return data;
   });
+
+  useEffect(() => {
+    refetch();
+  }, [isMen]);
 
   // number to currency
   const products = data?.map((item: product) => {
@@ -23,17 +35,22 @@ function useHome() {
     };
   });
 
- const navigate = useNavigate();
- const goToProductDetail = (params: string) => {
-   navigate(`/products/${params}`);
- }
+  //go to detail page
+  const navigate = useNavigate();
+  const goToProductFilter = (params: string) => {
+    navigate(`/products/${params}`);
+  };
+  const goToProductDetail = (params: string) => {
+    navigate(`/detail-product/${params}`);
+  };
 
   return {
     products,
     isLoading,
-    isError, 
+    isError,
     isMen,
     setIsMen,
+    goToProductFilter,
     goToProductDetail
   };
 }

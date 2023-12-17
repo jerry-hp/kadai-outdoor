@@ -27,7 +27,7 @@ function ImageSlider() {
     setActiveSlide(slideIndex);
   };
   return (
-    <div className="bg-red-500 h-[350px] flex rounded-lg relative">
+    <div className="h-[350px] flex rounded-lg relative">
       <img src={slides[activeSlide]} alt="tes" className="w-full h-full rounded-lg" />
       <div className="absolute top-1/2 left-3 text-[#0B2545] bg-white/[0.2] backdrop-blur-sm rounded-lg p-1 translate-y-[-50%] cursor-pointer">
         <MdOutlineArrowBackIosNew size={30} onClick={prevSlide} />

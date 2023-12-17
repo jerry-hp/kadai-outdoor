@@ -11,6 +11,7 @@ import { persistor } from "./redux/store";
 import Profile from "./pages/Profile";
 import { QueryClientProvider, QueryClient } from "react-query";
 import FilterProducts from "./pages/FilterProducts";
+import DetailProduct from "./pages/DetailProduct";
 
 const queryClient = new QueryClient();
 function App() {
@@ -25,6 +26,7 @@ function App() {
                 <Route element={<PrivateRoute />}>
                   <Route path="/" element={<Home />} />
                   <Route path="/products/:category" element={<FilterProducts />} />
+                  <Route path="/detail-product/:id" element={<DetailProduct />} />
                   <Route path="/profile" element={<Profile />} />
                 </Route>
                 <Route path="/sign-in" element={<SignIn />} />

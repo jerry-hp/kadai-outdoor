@@ -12,8 +12,7 @@ import logoConsina from "../assets/consina.png";
 import { product } from "../types";
 
 function Home() {
-  const { isMen, setIsMen, products, isLoading, isError, goToProductDetail } = useHome();
-
+  const { isMen, setIsMen, products, isLoading, isError, goToProductFilter, goToProductDetail } = useHome();
   return (
     <div className=" box-border max-w-6xl mx-auto  min-h-screen ">
       {isLoading ? (
@@ -30,27 +29,27 @@ function Home() {
         <div>
           {/* filter card */}
           <div className=" my-1 sm:my-3 flex flex-wrap justify-between sm:gap-2">
-            <div onClick={() => goToProductDetail("clothes")} className="item1 text-[#0B2545] w-[15%] sm:w-[15%] py-2 sm:py-3 bg-[RGBA(255,255,255,0.1)] rounded-lg cursor-pointer">
+            <div onClick={() => goToProductFilter("clothes")} className="item1 text-[#0B2545] w-[15%] sm:w-[15%] py-2 sm:py-3 bg-[RGBA(255,255,255,0.1)] rounded-lg cursor-pointer">
               <RiShirtFill className="mx-auto text-3xl sm:text-5xl" />
               <p className="font-normal sm:font-bold text-center">Clothes</p>
             </div>
-            <div onClick={() => goToProductDetail("pant")} className="item1 text-[#0B2545] w-[15%] sm:w-[15%] py-2 sm:py-3 bg-[RGBA(255,255,255,0.1)] rounded-lg cursor-pointer">
+            <div onClick={() => goToProductFilter("pant")} className="item1 text-[#0B2545] w-[15%] sm:w-[15%] py-2 sm:py-3 bg-[RGBA(255,255,255,0.1)] rounded-lg cursor-pointer">
               <PiPantsFill className="mx-auto text-3xl sm:text-5xl" />
               <p className="font-normal sm:font-bold text-center">Pants</p>
             </div>
-            <div onClick={() => goToProductDetail("shoes")} className="item1 text-[#0B2545] w-[15%] sm:w-[15%] py-2 sm:py-3 bg-[RGBA(255,255,255,0.1)] rounded-lg cursor-pointer">
+            <div onClick={() => goToProductFilter("shoes")} className="item1 text-[#0B2545] w-[15%] sm:w-[15%] py-2 sm:py-3 bg-[RGBA(255,255,255,0.1)] rounded-lg cursor-pointer">
               <GiRunningShoe className="mx-auto text-3xl sm:text-5xl" />
               <p className="font-normal sm:font-bold text-center">Shoes</p>
             </div>
-            <div onClick={() => goToProductDetail("slipper")} className="item1 text-[#0B2545] w-[15%] sm:w-[15%] py-2 sm:py-3 bg-[RGBA(255,255,255,0.1)] rounded-lg cursor-pointer">
+            <div onClick={() => goToProductFilter("slipper")} className="item1 text-[#0B2545] w-[15%] sm:w-[15%] py-2 sm:py-3 bg-[RGBA(255,255,255,0.1)] rounded-lg cursor-pointer">
               <GiSlippers className="mx-auto text-3xl sm:text-5xl" />
               <p className="font-normal sm:font-bold text-center">Slippers</p>
             </div>
-            <div onClick={() => goToProductDetail("tent")} className="item1 text-[#0B2545] w-[15%] sm:w-[15%] py-2 sm:py-3 bg-[RGBA(255,255,255,0.1)] rounded-lg cursor-pointer">
+            <div onClick={() => goToProductFilter("tent")} className="item1 text-[#0B2545] w-[15%] sm:w-[15%] py-2 sm:py-3 bg-[RGBA(255,255,255,0.1)] rounded-lg cursor-pointer">
               <GiCampingTent className="mx-auto text-3xl sm:text-5xl" />
               <p className="font-normal sm:font-bold text-center">Tents </p>
             </div>
-            <div onClick={() => goToProductDetail("carrier")} className="item1 text-[#0B2545] w-[15%] sm:w-[15%] py-2 sm:py-3 bg-[RGBA(255,255,255,0.1)] rounded-lg cursor-pointer">
+            <div onClick={() => goToProductFilter("carrier")} className="item1 text-[#0B2545] w-[15%] sm:w-[15%] py-2 sm:py-3 bg-[RGBA(255,255,255,0.1)] rounded-lg cursor-pointer">
               <GiBackpack className="mx-auto text-3xl sm:text-5xl" />
               <p className="font-normal sm:font-bold text-center">Carriers</p>
             </div>
@@ -72,7 +71,7 @@ function Home() {
           <div className="my-1 sm:my-3 flex justify-between gap-2 flex-wrap">
             {products &&
               products.map((item: product, index: number) => (
-                <div key={index} className="relative w-[23%] hover:scale-110 cursor-pointer">
+                <div key={index} onClick={() => goToProductDetail(String(item.id))} className="relative w-[23%] hover:scale-110 cursor-pointer">
                   <img src={item.product_image} alt="" className="w-full rounded-[8px_8px_0_0] h-[200px]" />
                   <p className="text-[#0B2545] text-[14px] font-semibold">{item.product_name}</p>
                   <div className="flex justify-between items-center">

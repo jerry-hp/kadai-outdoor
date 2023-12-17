@@ -14,8 +14,7 @@ export default new (class ProductRepository {
       return res.status(500).json({ error });
     }
   }
-
-  async getproductByParams(req: Request, res: Response): Promise<Response> {
+  async getproductByCategory(req: Request, res: Response): Promise<Response> {
     try {
       const { category } = req.params;
       if (category === "clothes") {
@@ -25,6 +24,16 @@ export default new (class ProductRepository {
         const products = await this.productRepository.find({ where: { product_category: category }, relations: ["product_size"] });
         return res.status(200).json({ products });
       }
+    } catch (error) {
+      return res.status(500).json({ error });
+    }
+  }
+
+  async getProductById(req: Request, res: Response): Promise<Response> {
+    try {
+      const { id } = req.params;
+      const product = await this.productRepository.find({ where: { id: Number(id) }, relations: ["product_size"] });
+      return res.status(200).json({ product });
     } catch (error) {
       return res.status(500).json({ error });
     }

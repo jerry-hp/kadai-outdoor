@@ -18,6 +18,9 @@ export class Product {
   @Column()
   product_category: string;
 
+  @Column({ default: "men" })
+  product_gender: string;
+
   @Column()
   product_price: number;
 

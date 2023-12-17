@@ -5,6 +5,7 @@ export interface product {
   product_image: string;
   product_price: number;
   product_category: number;
+  product_gender: string;
   product_brand: string;
   product_size?: string[];
 }
