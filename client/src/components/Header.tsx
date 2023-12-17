@@ -3,9 +3,12 @@ import { FaSearch } from "react-icons/fa";
 import { TiShoppingCart } from "react-icons/ti";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import Cart from "./Cart";
+import { useState } from "react";
 
 function Header() {
   const user = useSelector((state: any) => state.user.user);
+  const [showCart, setShowCart] = useState(false);
 
   return (
     <div className="bg-[#0B2545] p-3">
@@ -20,7 +23,7 @@ function Header() {
             <li className="text-[#EEF4ED] cursor-pointer">Home</li>
           </Link>
           <li>
-            <TiShoppingCart className="text-[#EEF4ED] cursor-pointer text-lg" />
+            <TiShoppingCart onClick={() => setShowCart(!showCart)} className="text-[#EEF4ED] cursor-pointer text-lg" />
           </li>
           {user.image ? (
             <Link to={"/profile"}>
@@ -35,6 +38,14 @@ function Header() {
           )}
         </ul>
       </div>
+      {showCart && (
+        <div>
+          <div onClick={() => setShowCart(false)} className="absolute top-0 left-0 w-full h-full z-40 cursor-pointer bg-black/40"></div>
+          <div className="absolute bg-[#8da9c4]  top-0 right-0 w-[350px] z-50">
+            <Cart setShowCart={setShowCart} />
+          </div>
+        </div>
+      )}
     </div>
   );
 }
