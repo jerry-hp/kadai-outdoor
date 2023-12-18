@@ -13,6 +13,7 @@ import { product } from "../types";
 
 function Home() {
   const { isMen, setIsMen, products, isLoading, isError, goToProductFilter, goToProductDetail } = useHome();
+
   return (
     <div className=" box-border max-w-6xl mx-auto  min-h-screen ">
       {isLoading ? (
