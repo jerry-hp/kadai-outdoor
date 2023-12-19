@@ -1,8 +1,8 @@
 import sizeController from "../controllers/sizeController";
 import express from "express";
 
-const router=express.Router();
+const router = express.Router();
 
-router.post("/size",sizeController.createSize);
+router.post("/size", sizeController.createSize);
 
-export default router
+export default router;

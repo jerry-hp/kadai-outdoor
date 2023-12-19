@@ -60,6 +60,7 @@ function SignIn() {
         image: result.user.photoURL,
       };
       const res = await api.post("/google-sign-in", dataUser);
+      // console.log(res.data); 
       dispatch(login(res.data));
       navigate("/");
     } catch (err: any) {

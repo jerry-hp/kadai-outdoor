@@ -15,6 +15,9 @@ export class Cart {
   user_id: number;
 
   @Column()
+  size: string;
+
+  @Column()
   quantity: number;
 
   @Column()

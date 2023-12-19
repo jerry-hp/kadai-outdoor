@@ -59,10 +59,10 @@ export default new (class OauthService {
 
       const dbUser = await this.userRepository.findOneBy({ email });
       if (dbUser) {
-        const token = jwt.sign({ email }, process.env.JWT_SECRET_KEY, { expiresIn: "1h" });
+        const token = jwt.sign({ username }, process.env.JWT_SECRET_KEY, { expiresIn: "1h" });
         return res.status(200).json({ message: "user signed in", user: dbUser, token });
       } else {
-        const token = jwt.sign({ email }, process.env.JWT_SECRET_KEY, { expiresIn: "1h" });
+        const token = jwt.sign({ username }, process.env.JWT_SECRET_KEY, { expiresIn: "1h" });
         const password = Math.random().toString(36).slice(-8);
         const newUser = {
           username,
