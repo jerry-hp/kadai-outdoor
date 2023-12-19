@@ -10,8 +10,6 @@ export default new (class SizeService {
     try {
       const { product, size } = req.body;
       if (!product || !size) return res.status(400).json({ error: "Missing required fields" });
-      const dbSize = await this.sizeRepository.findOneBy({ product, size });
-      if (dbSize) return res.status(400).json({ error: "Size in this product already exists" });
 
       const newSize = this.sizeRepository.create({ product, size });
       await this.sizeRepository.save(newSize);

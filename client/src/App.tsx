@@ -12,6 +12,7 @@ import Profile from "./pages/Profile";
 import { QueryClientProvider, QueryClient } from "react-query";
 import FilterProducts from "./pages/FilterProducts";
 import DetailProduct from "./pages/DetailProduct";
+import Admin from "./components/Admin";
 
 const queryClient = new QueryClient();
 function App() {
@@ -31,6 +32,7 @@ function App() {
                 </Route>
                 <Route path="/sign-in" element={<SignIn />} />
                 <Route path="/sign-up" element={<SingUp />} />
+                <Route path="/admin" element={<Admin />} />
               </Routes>
             </BrowserRouter>
           </PersistGate>

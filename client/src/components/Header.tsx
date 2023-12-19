@@ -5,10 +5,19 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Cart from "./Cart";
 import { useState } from "react";
+import { useQuery } from "react-query";
+import api from "../libs/api";
 
 function Header() {
   const user = useSelector((state: any) => state.user.user);
   const [showCart, setShowCart] = useState(false);
+
+  //get data cart
+  const userID = useSelector((state: any) => state.user.user.id);
+  const { data } = useQuery("cart", async () => {
+    const res = await api.get("/cart/" + userID);
+    return res.data.carts;
+  });
 
   return (
     <div className="bg-[#0B2545] p-3">
@@ -23,7 +32,14 @@ function Header() {
             <li className="text-[#EEF4ED] cursor-pointer">Home</li>
           </Link>
           <li>
-            <TiShoppingCart onClick={() => setShowCart(!showCart)} className="text-[#EEF4ED] cursor-pointer text-lg" />
+            <div className="relative">
+              <TiShoppingCart onClick={() => setShowCart(!showCart)} className="text-[#EEF4ED] cursor-pointer text-lg" />
+              {data?.length > 0 && (
+                <div className=" absolute top-[-7px]  right-[-7px] w-[14px] h-[14px] rounded-full bg-[#EEF4ED] text-[#0B2545] flex justify-center items-center ">
+                  <p>{data?.length}</p>
+                </div>
+              )}
+            </div>
           </li>
           {user.image ? (
             <Link to={"/profile"}>
