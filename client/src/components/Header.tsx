@@ -2,44 +2,40 @@ import logo from "../assets/logo.png";
 import { FaSearch } from "react-icons/fa";
 import { TiShoppingCart } from "react-icons/ti";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
 import Cart from "./Cart";
-import { useState } from "react";
-import { useQuery } from "react-query";
-import api from "../libs/api";
+
+import useHeader from "../hooks/useHeader";
 
 function Header() {
-  const user = useSelector((state: any) => state.user.user);
-  const [showCart, setShowCart] = useState(false);
-
-  //get data cart
-  const userID = useSelector((state: any) => state.user.user.id);
-  const { data } = useQuery("cart", async () => {
-    const res = await api.get("/cart/" + userID);
-    return res.data.carts;
-  });
+  const { user, showCart, setShowCart, userID, data } = useHeader();
 
   return (
     <div className="bg-[#0B2545] p-3">
       <div className="mx-auto max-w-6xl flex flex-row justify-between items-center shadow-2xl">
         <img src={logo} alt="logo" className="w-40" />
-        <div className="flex flex-row items-center bg-[#EEF4ED] p-1 rounded-lg w-96">
-          <input className="bg-transparent outline-none w-full" type="text" placeholder="Search products" />
-          <FaSearch className="text-[#0B2545] cursor-pointer" />
-        </div>
+        {userID && (
+          <div className="flex flex-row items-center bg-[#EEF4ED] p-1 rounded-lg w-96">
+            <input className="bg-transparent outline-none w-full" type="text" placeholder="Search products" />
+            <FaSearch className="text-[#0B2545] cursor-pointer" />
+          </div>
+        )}
         <ul className="flex flex-row items-center gap-4">
-          <Link to={"/"}>
-            <li className="text-[#EEF4ED] cursor-pointer">Home</li>
-          </Link>
+          {userID && (
+            <Link to={"/"}>
+              <li className="text-[#EEF4ED] cursor-pointer">Home</li>
+            </Link>
+          )}
           <li>
-            <div className="relative">
-              <TiShoppingCart onClick={() => setShowCart(!showCart)} className="text-[#EEF4ED] cursor-pointer text-lg" />
-              {data?.length > 0 && (
-                <div className=" absolute top-[-7px]  right-[-7px] w-[14px] h-[14px] rounded-full bg-[#EEF4ED] text-[#0B2545] flex justify-center items-center ">
-                  <p>{data?.length}</p>
-                </div>
-              )}
-            </div>
+            {userID && (
+              <div className="relative">
+                <TiShoppingCart onClick={() => setShowCart(!showCart)} className="text-[#EEF4ED] cursor-pointer text-lg" />
+                {data?.length > 0 && (
+                  <div className=" absolute top-[-7px]  right-[-7px] w-[14px] h-[14px] rounded-full bg-[#EEF4ED] text-[#0B2545] flex justify-center items-center ">
+                    <p>{data?.length}</p>
+                  </div>
+                )}
+              </div>
+            )}
           </li>
           {user.image ? (
             <Link to={"/profile"}>
@@ -48,9 +44,11 @@ function Header() {
               </li>
             </Link>
           ) : (
-            <Link to={"/sign-in"}>
-              <li className="text-[#EEF4ED] cursor-pointer">Sign in</li>
-            </Link>
+            userID && (
+              <Link to={"/sign-in"}>
+                <li className="text-[#EEF4ED] cursor-pointer">Sign in</li>
+              </Link>
+            )
           )}
         </ul>
       </div>

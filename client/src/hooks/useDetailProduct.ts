@@ -1,8 +1,9 @@
-import { useQuery } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import { useParams } from "react-router-dom";
 import api from "../libs/api";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import useHeader from "./useHeader";
 function useDetailProduct() {
   const userID = useSelector((state: any) => state.user.user.id);
   const { id } = useParams();
@@ -36,19 +37,31 @@ function useDetailProduct() {
 
   const handlePrice = async () => {
     const price = await data[0]?.product_price;
-    setDataCart({ ...dataCart, quantity: total, total_price: price * total });
+    setDataCart({ ...dataCart, quantity: total, total_price: total !== 1 ? price * total : price });
   };
 
   useEffect(() => {
     handlePrice();
   }, [total]);
-   
-  //add to cart
-  const addToCart = async () => {
-    const res = await api.post("/cart", dataCart);
-    console.log(res);
-  }
 
+  //refectch cart
+  const { refetch } = useHeader();
+  //add to cart
+  const mutation = useMutation(
+    "cart",
+    async () => {
+      const res = await api.post("/cart", dataCart);
+      console.log(res);
+    },
+    {
+      onSuccess: () => {
+        refetch();
+      },
+    }
+  );
+  const addToCart = async () => {
+    mutation.mutate();
+  };
 
   return { productById, isLoading, isError, setDataCart, dataCart, total, setTotal, addToCart };
 }

@@ -22,8 +22,8 @@ export default new (class CartService {
       const { userId } = req.params;
       console.log(userId);
 
-      const carts = await this.cartRepository.findOne({ where: { user_id: Number(userId) }, relations: ["user_id", "product_id"] });
-      return res.status(200).json({ carts: [carts] });
+      const carts = await this.cartRepository.find({ where: { user_id: Number(userId) }, relations: ["user_id", "product_id"] });
+      return res.status(200).json({ carts });
     } catch (error) {
       return res.status(500).json({ error });
     }

@@ -6,7 +6,7 @@ import { CgSearchLoading } from "react-icons/cg";
 import { TbError404Off } from "react-icons/tb";
 
 function DetailProduct() {
-  const { productById, isLoading, isError, setDataCart, dataCart, total, setTotal,addToCart } = useDetailProduct();
+  const { productById, isLoading, isError, setDataCart, dataCart, total, setTotal, addToCart } = useDetailProduct();
   return (
     <div className="max-w-6xl mx-auto my-2 box-border flex gap-2">
       {isLoading ? (
