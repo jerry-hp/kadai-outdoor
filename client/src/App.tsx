@@ -12,7 +12,7 @@ import Profile from "./pages/Profile";
 import { QueryClientProvider, QueryClient } from "react-query";
 import FilterProducts from "./pages/FilterProducts";
 import DetailProduct from "./pages/DetailProduct";
-import Admin from "./components/Admin";
+import Admin from "./admin/admin";
 
 const queryClient = new QueryClient();
 function App() {
@@ -22,16 +22,63 @@ function App() {
         <Provider store={store}>
           <PersistGate loading={null} persistor={persistor}>
             <BrowserRouter>
-              <Header />
               <Routes>
                 <Route element={<PrivateRoute />}>
-                  <Route path="/" element={<Home />} />
-                  <Route path="/products/:category" element={<FilterProducts />} />
-                  <Route path="/detail-product/:id" element={<DetailProduct />} />
-                  <Route path="/profile" element={<Profile />} />
+                  <Route
+                    path="/"
+                    element={
+                      <>
+                        <Header />
+                        <Home />
+                      </>
+                    }
+                  />
+                  <Route
+                    path="/products/:category"
+                    element={
+                      <>
+                        <Header />
+                        <FilterProducts />
+                      </>
+                    }
+                  />
+                  <Route
+                    path="/detail-product/:id"
+                    element={
+                      <>
+                        <Header />
+                        <DetailProduct />
+                      </>
+                    }
+                  />
+                  <Route
+                    path="/profile"
+                    element={
+                      <>
+                        <Header />
+                        <Profile />
+                      </>
+                    }
+                  />
                 </Route>
-                <Route path="/sign-in" element={<SignIn />} />
-                <Route path="/sign-up" element={<SingUp />} />
+                <Route
+                  path="/sign-in"
+                  element={
+                    <>
+                      <Header />
+                      <SignIn />
+                    </>
+                  }
+                />
+                <Route
+                  path="/sign-up"
+                  element={
+                    <>
+                      <Header />
+                      <SingUp />
+                    </>
+                  }
+                />
                 <Route path="/admin" element={<Admin />} />
               </Routes>
             </BrowserRouter>

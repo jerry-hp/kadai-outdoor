@@ -42,6 +42,8 @@ export default new (class ProductRepository {
   async createProduct(req: Request, res: Response): Promise<Response> {
     try {
       const product = req.body;
+      console.log({ product });
+
       const newProduct = this.productRepository.create(product);
       await this.productRepository.save(newProduct);
 

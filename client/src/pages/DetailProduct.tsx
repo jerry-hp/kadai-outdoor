@@ -23,7 +23,7 @@ function DetailProduct() {
         productById.length === 1 && (
           <div className="w-full flex gap-2 box-border">
             <img className="w-1/2 rounded-lg" src={productById[0]?.product_image} alt="" />
-            <div>
+            <div className="w-1/2">
               <img src={productById[0]?.product_brand === "CONSINA" ? logoConsina : productById[0]?.product_brand === "EIGER" ? logoEiger : logoArei} className="w-[50px] mx-auto" alt="" />
               <h3 className="text-[#0B2545] text-xl font-bold my-1 sm:my-2">{productById[0]?.product_name}</h3>
               <h5 className="text-[#0B2545] text-lg font-bold my-1 sm:my-2">{productById[0]?.product_price}</h5>
