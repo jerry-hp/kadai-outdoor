@@ -3,6 +3,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import Sidebar from "./sidebar";
 import api from "../libs/api";
+import { useState } from "react";
 
 const schema = yup
   .object({
@@ -11,11 +12,16 @@ const schema = yup
     product_category: yup.string().required(),
     product_price: yup.number().positive().integer().required(),
     product_description: yup.string().required(),
-    // product_image: yup.mixed().required("Product Image is required"),
+    product_image: yup.mixed().required("Product Image is required"),
+    product_size: yup.array().of(yup.string()).min(1, "Select at least one size").required(),
   })
   .required();
 
 function Admin() {
+
+
+  const [image, setImage] = useState("");
+  const [loading, setLoading] = useState(false);
   const {
     register,
     handleSubmit,
@@ -29,22 +35,33 @@ function Admin() {
       product_category: "",
       product_price: 0,
       product_description: "",
-      // product_image: {},
+      product_image: {},
+      product_size: [],
     },
   });
 
-  // const handleFileChange = (event: any) => {
-  //   // Handle file changes and update the form state
-  //   const file = event.target.files[0];
-  //   // You might want to perform additional checks on the file, e.g., size, type, etc.
-  //   // For simplicity, we'll update the form state directly.
-  //   register("product_image").onChange(file);
-  // };
+  const handleImageChange = (e: any) => {
+    if (e.target.files[0]) {
+      setImage(e.target.files[0]);
+    }
+  };
 
   const postProduct = async (data: any) => {
     try {
-      const res = await api.post("/product", data);
+      setLoading(true);
+      const dataProduct = new FormData();
+      dataProduct.append("product_name", data.product_name);
+      dataProduct.append("product_brand", data.product_brand);
+      dataProduct.append("product_category", data.product_category);
+      dataProduct.append("product_price", data.product_price);
+      dataProduct.append("product_description", data.product_description);
+      dataProduct.append("product_size", data.product_size);
+      dataProduct.append("product_image", image);
+
+      const res = await api.post("/product", dataProduct);
       console.log(res.data);
+      setLoading(false);
+      alert(res.data.message);
     } catch (error) {
       console.log(error);
     }
@@ -105,13 +122,36 @@ function Admin() {
                 {errors.product_price && <p className="text-red-500">{errors.product_price?.message}</p>}
               </div>
 
-              {/* <div>
+              <div>
                 <label htmlFor="product_image" className="block text-sm font-medium text-gray-600">
                   Product Image
                 </label>
-                <input {...register("product_image")} type="file" accept="image/*" onChange={handleFileChange} id="product_image" className="mt-1 p-2 border rounded-md w-full" />
+                <input {...register("product_image")} type="file" name="product_image" accept="image/*" onChange={handleImageChange} id="product_image" className="mt-1 p-2 border rounded-md w-full" />
                 {errors.product_image && <p className="text-red-500">{errors.product_image?.message}</p>}
-              </div> */}
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-600">Product Size</label>
+                <div className="flex mt-1 space-x-4">
+                  <label className="inline-flex items-center">
+                    <input type="checkbox" {...register("product_size")} value="S" />
+                    <span className="ml-2">S</span>
+                  </label>
+                  <label className="inline-flex items-center">
+                    <input type="checkbox" {...register("product_size")} value="M" />
+                    <span className="ml-2">M</span>
+                  </label>
+                  <label className="inline-flex items-center">
+                    <input type="checkbox" {...register("product_size")} value="L" />
+                    <span className="ml-2">L</span>
+                  </label>
+                  <label className="inline-flex items-center">
+                    <input type="checkbox" {...register("product_size")} value="XL" />
+                    <span className="ml-2">XL</span>
+                  </label>
+                </div>
+                {errors.product_size && <p className="text-red-500">{errors.product_size?.message}</p>}
+              </div>
 
               <div>
                 <label htmlFor="product_description" className="block text-sm font-medium text-gray-600">
@@ -121,7 +161,7 @@ function Admin() {
                 {errors.product_description && <p className="text-red-500">{errors.product_description?.message}</p>}
               </div>
               <div>
-                <input type="submit" value="Submit" className="bg-[#0B2545] text-white p-2 rounded-md cursor-pointer" />
+                <input type="submit" disabled={loading} value={loading ? "Loading..." : "Create Product"} className="bg-[#0B2545] text-white p-2 disabled:opacity-50 rounded-md cursor-pointer" />
               </div>
             </form>
           </div>

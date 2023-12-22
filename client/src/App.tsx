@@ -12,7 +12,8 @@ import Profile from "./pages/Profile";
 import { QueryClientProvider, QueryClient } from "react-query";
 import FilterProducts from "./pages/FilterProducts";
 import DetailProduct from "./pages/DetailProduct";
-import Admin from "./admin/admin";
+import Admin from "./admin/CreateProduct";
+import PrivateAdmin from "./components/PrivateAdmin";
 
 const queryClient = new QueryClient();
 function App() {
@@ -79,7 +80,9 @@ function App() {
                     </>
                   }
                 />
-                <Route path="/admin" element={<Admin />} />
+                <Route element={<PrivateAdmin />}>
+                  <Route path="/admin" element={<Admin />} />
+                </Route>
               </Routes>
             </BrowserRouter>
           </PersistGate>
