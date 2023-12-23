@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable, ManyToOne } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable, ManyToOne, JoinColumn } from "typeorm";
 import { Product } from "./product";
 import { User } from "./user";
 
@@ -12,7 +12,7 @@ export class Cart {
   product_id: Product[];
 
   @ManyToOne(() => User, (user) => user.cart)
-  user_id: number;
+  user: User;
 
   @Column()
   size: string;

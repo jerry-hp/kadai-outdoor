@@ -20,9 +20,10 @@ export default new (class CartService {
   async getCartbyUserId(req: Request, res: Response): Promise<Response> {
     try {
       const { userId } = req.params;
-      console.log(userId);
+      console.log({ userId });
 
-      const carts = await this.cartRepository.find({ where: { user_id: Number(userId) }, relations: ["user_id", "product_id"] });
+      const carts = await this.cartRepository.find({ where: { user: { id: Number(userId) } }, withDeleted: true, relations: ["user", "product_id"] });
+
       return res.status(200).json({ carts });
     } catch (error) {
       return res.status(500).json({ error });
@@ -38,7 +39,7 @@ export default new (class CartService {
       const product = await this.productRepository.findOne({ where: { id: Number(product_id) } });
 
       const dataCart = {
-        user_id,
+        user: user_id,
         quantity,
         size,
         total_price,

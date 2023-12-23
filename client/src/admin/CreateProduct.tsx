@@ -1,9 +1,10 @@
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import Sidebar from "./sidebar";
+import Sidebar from "./components/sidebar";
 import api from "../libs/api";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const schema = yup
   .object({
@@ -11,6 +12,7 @@ const schema = yup
     product_brand: yup.string().required(),
     product_category: yup.string().required(),
     product_price: yup.number().positive().integer().required(),
+    product_gender: yup.string().required(),
     product_description: yup.string().required(),
     product_image: yup.mixed().required("Product Image is required"),
     product_size: yup.array().of(yup.string()).min(1, "Select at least one size").required(),
@@ -18,8 +20,6 @@ const schema = yup
   .required();
 
 function Admin() {
-
-
   const [image, setImage] = useState("");
   const [loading, setLoading] = useState(false);
   const {
@@ -37,6 +37,7 @@ function Admin() {
       product_description: "",
       product_image: {},
       product_size: [],
+      product_gender: "",
     },
   });
 
@@ -46,6 +47,8 @@ function Admin() {
     }
   };
 
+  const navigate = useNavigate();
+
   const postProduct = async (data: any) => {
     try {
       setLoading(true);
@@ -54,6 +57,7 @@ function Admin() {
       dataProduct.append("product_brand", data.product_brand);
       dataProduct.append("product_category", data.product_category);
       dataProduct.append("product_price", data.product_price);
+      dataProduct.append("product_gender", data.product_gender);
       dataProduct.append("product_description", data.product_description);
       dataProduct.append("product_size", data.product_size);
       dataProduct.append("product_image", image);
@@ -61,7 +65,7 @@ function Admin() {
       const res = await api.post("/product", dataProduct);
       console.log(res.data);
       setLoading(false);
-      alert(res.data.message);
+      navigate("/admin");
     } catch (error) {
       console.log(error);
     }
@@ -120,6 +124,18 @@ function Admin() {
                 </label>
                 <input {...register("product_price")} type="number" id="product_price" className="mt-1 p-2 border rounded-md w-full" />
                 {errors.product_price && <p className="text-red-500">{errors.product_price?.message}</p>}
+              </div>
+
+              <div>
+                <label htmlFor="product_gender" className="block text-sm font-medium text-gray-600">
+                  Product Gender
+                </label>
+                <select {...register("product_gender")} id="product_gender" className="mt-1 p-2 border rounded-md w-full">
+                  <option value="">Select Gender</option>
+                  <option value="men">Men</option>
+                  <option value="women">women</option>
+                </select>
+                {errors.product_gender && <p className="text-red-500">{errors.product_gender?.message}</p>}
               </div>
 
               <div>

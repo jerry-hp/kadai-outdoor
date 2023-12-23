@@ -12,6 +12,7 @@ export default new (class ProductRepository {
   async getProducts(req: Request, res: Response): Promise<Response> {
     try {
       const products = await this.productRepository.find({ relations: ["product_size"] });
+      products.reverse();
       return res.status(200).json({ products });
     } catch (error) {
       return res.status(500).json({ error });
@@ -22,9 +23,11 @@ export default new (class ProductRepository {
       const { category } = req.params;
       if (category === "clothes") {
         const products = await this.productRepository.find({ where: [{ product_category: "jacket" }, { product_category: "shirt" }], relations: ["product_size"] });
+        products.reverse();
         return res.status(200).json({ products });
       } else {
         const products = await this.productRepository.find({ where: { product_category: category }, relations: ["product_size"] });
+        products.reverse();
         return res.status(200).json({ products });
       }
     } catch (error) {
@@ -87,6 +90,20 @@ export default new (class ProductRepository {
       });
 
       return res.status(200).json({ message: "product created", product: productCreated });
+    } catch (error) {
+      return res.status(500).json({ error });
+    }
+  }
+
+  async deleteProduct(req: Request, res: Response): Promise<Response> {
+    try {
+      const { id } = req.params;
+      // softdelete
+      const product = await this.productRepository.findOneBy({ id: Number(id) });
+      console.log({ product });
+      if (!product) return res.status(404).json({ message: "product not found" });
+      await this.productRepository.manager.softRemove(product);
+      return res.status(200).json({ message: "product deleted" });
     } catch (error) {
       return res.status(500).json({ error });
     }

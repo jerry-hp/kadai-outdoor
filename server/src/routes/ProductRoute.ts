@@ -10,5 +10,6 @@ router.get("/products", ProductController.getProducts);
 router.get("/product/:category", ProductController.getproductByCategory);
 router.get("/products/:id", ProductController.getProductById);
 router.post("/product", UploadMiddleWare.handleUpload.bind(UploadMiddleWare), ProductController.createProduct);
+router.delete("/product/:id", ProductController.deleteProduct);
 
 export default router;

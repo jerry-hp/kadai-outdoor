@@ -2,10 +2,8 @@ import { useMutation, useQuery } from "react-query";
 import { useParams } from "react-router-dom";
 import api from "../libs/api";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 import useHeader from "./useHeader";
 function useDetailProduct() {
-  const userID = useSelector((state: any) => state.user.user.id);
   const { id } = useParams();
   const [total, setTotal] = useState(1);
 
@@ -28,7 +26,7 @@ function useDetailProduct() {
 
   //state data Cart
   const [dataCart, setDataCart] = useState({
-    user_id: userID,
+    user_id: 19,
     product_id: id,
     quantity: 1,
     size: "",

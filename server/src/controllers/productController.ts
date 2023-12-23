@@ -17,4 +17,8 @@ export default new (class ProductController {
   async createProduct(req: Request, res: Response): Promise<Response> {
     return await ProductService.createProduct(req, res);
   }
+
+  async deleteProduct(req: Request, res: Response): Promise<Response> {
+    return await ProductService.deleteProduct(req, res);
+  }
 })();

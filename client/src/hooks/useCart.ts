@@ -4,11 +4,10 @@ import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 
 function useCart() {
-  const [userID, setUserID] = useState(null);
   //get data cart
   const token = localStorage.getItem("token");
-  const id = useSelector((state: any) => state.user.user.id);
-
+  const id: number = useSelector((state: any) => state.user.user.id);
+  const [userID, setUserID] = useState(id);
   const { data, isLoading, isError } = useQuery("cart", async () => {
     const res = await api.get(`/cart/${userID}`);
     return res.data.carts;

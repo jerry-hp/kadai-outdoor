@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany, DeleteDateColumn } from "typeorm";
 import { Size } from "./size";
 
 @Entity()
@@ -29,4 +29,7 @@ export class Product {
 
   @OneToMany(() => Size, (size) => size.product)
   product_size: Size[];
+
+  @DeleteDateColumn({ type: "timestamp", nullable: true })
+  deletedAt: Date;
 }
