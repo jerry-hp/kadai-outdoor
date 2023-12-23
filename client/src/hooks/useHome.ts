@@ -45,6 +45,7 @@ function useHome() {
   };
 
   return {
+    refetch,
     products,
     isLoading,
     isError,

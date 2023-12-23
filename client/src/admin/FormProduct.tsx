@@ -4,11 +4,13 @@ import { MdDelete } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import useHome from "../hooks/useHome";
 import { product } from "../types";
+import useFormProduct from "./hooks/useFormProduct";
 
 function FormProduct() {
   const navigate = useNavigate();
   const { products } = useHome();
-  console.log(products);
+  const {  deleteProduct } = useFormProduct();
+  // console.log(products);
   return (
     <div className="flex min-h-[100vh] ">
       <Sidebar />
@@ -32,8 +34,8 @@ function FormProduct() {
                 </tr>
               </thead>
               <tbody>
-                {products?.map((item: product) => (
-                  <tr className="text-[#0B2545]">
+                {products?.map((item: product, index: number) => (
+                  <tr key={index} className="text-[#0B2545]">
                     <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11 flex">
                       <img src={item.product_image} className="w-12 h-12 rounded-lg" />
                       <p className="text-sm">{item.product_name}</p>
@@ -52,7 +54,7 @@ function FormProduct() {
                         <button className="hover:text-primary">
                           <FaEdit />
                         </button>
-                        <button className="hover:text-primary">
+                        <button onClick={() => deleteProduct(item.id)} className="hover:text-primary">
                           <MdDelete />
                         </button>
                       </div>
