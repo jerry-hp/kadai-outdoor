@@ -8,9 +8,11 @@ const authMiddleware = (req: Request, res: Response, next: NextFunction) => {
   if (!bearerToken || !bearerToken.startsWith("Bearer ")) {
     return res.status(401).json({ message: "Invalid token" });
   }
+  console.log({ bearerToken });
   const token = bearerToken.split(" ")[1];
   jwt.verify(token, process.env.JWT_SECRET_KEY, (err, decoded) => {
     if (err) {
+      console.log({ err });
       return res.status(401).json({ message: "Invalid token" });
     }
     req.body.user = decoded;

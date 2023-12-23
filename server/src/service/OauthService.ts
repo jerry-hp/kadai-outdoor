@@ -46,7 +46,7 @@ export default new (class OauthService {
       const passwordMatch = await bcrypt.compare(password, user.password);
       if (!passwordMatch) return res.status(400).json({ message: "password not match" });
 
-      const token = jwt.sign({ email }, process.env.JWT_SECRET_KEY, { expiresIn: "1h" });
+      const token = jwt.sign({ email }, process.env.JWT_SECRET_KEY);
       return res.status(200).json({ message: "user signed in", user, token });
     } catch (error) {
       console.log(error);
@@ -59,10 +59,10 @@ export default new (class OauthService {
 
       const dbUser = await this.userRepository.findOneBy({ email });
       if (dbUser) {
-        const token = jwt.sign({ username }, process.env.JWT_SECRET_KEY, { expiresIn: "1h" });
+        const token = jwt.sign({ username }, process.env.JWT_SECRET_KEY);
         return res.status(200).json({ message: "user signed in", user: dbUser, token });
       } else {
-        const token = jwt.sign({ username }, process.env.JWT_SECRET_KEY, { expiresIn: "1h" });
+        const token = jwt.sign({ username }, process.env.JWT_SECRET_KEY);
         const password = Math.random().toString(36).slice(-8);
         const newUser = {
           username,
