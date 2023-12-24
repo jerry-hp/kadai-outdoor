@@ -20,15 +20,15 @@ function Sidebar() {
           </Link>
         </li>
         <li>
-          <Link to="#" className="flex items-center gap-2">
-            <FaUsers />
-            Users
+          <Link to="/transactions" className="flex items-center gap-2">
+            <FaMoneyBillTransfer />
+            Transaction
           </Link>
         </li>
         <li>
           <Link to="#" className="flex items-center gap-2">
-            <FaMoneyBillTransfer />
-            Transactions
+            <FaUsers />
+            Users
           </Link>
         </li>
       </ul>

@@ -5,7 +5,7 @@ import useCart from "../hooks/useCart";
 import { CgSearchLoading } from "react-icons/cg";
 import { TbError404Off } from "react-icons/tb";
 function Cart({ setShowCart }: { setShowCart: React.Dispatch<React.SetStateAction<boolean>> }) {
-  const { dataCart, isLoading, isError, userID } = useCart();
+  const { dataCart, isLoading, isError, userID, deleteCart } = useCart();
   return (
     <div className="min-h-screen  box-border p-2">
       <div className=" bg-[#0B2545] absolute top-0  left-0 right-0 py-2 ">
@@ -36,7 +36,7 @@ function Cart({ setShowCart }: { setShowCart: React.Dispatch<React.SetStateActio
                 <h1 className="font-bold text-xs">Total Price : {item.total_price}</h1>
               </div>
               <div className="flex items-baseline absolute bottom-1 right-1">
-                <ImBin2 className="ml-auto mt-auto text-[#0B2545] w-10 text-2xl cursor-pointer p-1 border-[1px] border-[#0B2545] rounded-md" />
+                <ImBin2 onClick={() => deleteCart(item.id)} className="ml-auto mt-auto text-[#0B2545] w-10 text-2xl cursor-pointer p-1 border-[1px] border-[#0B2545] rounded-md" />
               </div>
             </div>
           ))}

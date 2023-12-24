@@ -15,6 +15,7 @@ import DetailProduct from "./pages/DetailProduct";
 import Admin from "./admin/FormProduct";
 import PrivateAdmin from "./components/PrivateAdmin";
 import CrateProduct from "./admin/CreateProduct";
+import Transaction from "./admin/Transaction";
 
 const queryClient = new QueryClient();
 function App() {
@@ -84,6 +85,7 @@ function App() {
                 <Route element={<PrivateAdmin />}>
                   <Route path="/admin" element={<Admin />} />
                   <Route path="/create-product" element={<CrateProduct />} />
+                  <Route path="/transactions" element={<Transaction />} />
                 </Route>
               </Routes>
             </BrowserRouter>

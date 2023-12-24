@@ -35,7 +35,7 @@ function useDetailProduct() {
 
   const handlePrice = async () => {
     const price = await data[0]?.product_price;
-    setDataCart({ ...dataCart, quantity: total, total_price: total !== 1 ? price * total : price });
+    setDataCart({ ...dataCart, quantity: total, total_price: price * total });
   };
 
   useEffect(() => {
@@ -58,6 +58,7 @@ function useDetailProduct() {
     }
   );
   const addToCart = async () => {
+    await handlePrice();
     mutation.mutate();
   };
 

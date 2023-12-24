@@ -9,10 +9,9 @@ import useFormProduct from "./hooks/useFormProduct";
 function FormProduct() {
   const navigate = useNavigate();
   const { products } = useHome();
-  const {  deleteProduct } = useFormProduct();
-  // console.log(products);
+  const { deleteProduct } = useFormProduct();
   return (
-    <div className="flex min-h-[100vh] ">
+    <div className="flex min-h-[100vh]">
       <Sidebar />
       <div className="flex-1 flex flex-col overflow-hidden">
         <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200 box-border">
@@ -23,21 +22,21 @@ function FormProduct() {
                 Add Product
               </button>
             </div>
-            <table className=" w-full table-auto">
+            <table className="bg-gray-200 text-left dark:bg-meta-4">
               <thead>
-                <tr className="bg-gray-200 text-left dark:bg-meta-4">
-                  <th className="min-w-[220px] py-4 px-4 font-medium text-[#0B2545] xl:pl-11">Name</th>
-                  <th className="min-w-[150px] py-4 px-4 font-medium text-[#0B2545]">Price</th>
-                  <th className="min-w-[120px] py-4 px-4 font-medium text-[#0B2545]">Category</th>
-                  <th className="min-w-[120px] py-4 px-4 font-medium text-[#0B2545]">Brand</th>
-                  <th className="py-4 px-4 font-medium text-[#0B2545]">Actions</th>
+                <tr className="bg-gray-300 text-[#0B2545] dark:bg-meta-4">
+                  <th className="min-w-[220px] py-4 px-4 font-medium xl:pl-11">Name</th>
+                  <th className="min-w-[150px] py-4 px-4 font-medium">Price</th>
+                  <th className="min-w-[120px] py-4 px-4 font-medium">Category</th>
+                  <th className="min-w-[120px] py-4 px-4 font-medium">Brand</th>
+                  <th className="py-4 px-4 font-medium">Actions</th>
                 </tr>
               </thead>
               <tbody>
                 {products?.map((item: product, index: number) => (
                   <tr key={index} className="text-[#0B2545]">
                     <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11 flex">
-                      <img src={item.product_image} className="w-12 h-12 rounded-lg" />
+                      <img src={item.product_image} className="w-12 h-12 rounded-lg" alt={item.product_name} />
                       <p className="text-sm">{item.product_name}</p>
                     </td>
                     <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">

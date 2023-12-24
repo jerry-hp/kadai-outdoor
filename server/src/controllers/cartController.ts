@@ -13,4 +13,8 @@ export default new (class CartController {
   async createCart(req: Request, res: Response) {
     return await cartService.createCart(req, res);
   }
+
+  async deleteCart(req: Request, res: Response) {
+    return await cartService.deleteCart(req, res);
+  }
 })();

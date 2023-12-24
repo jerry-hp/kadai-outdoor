@@ -53,4 +53,17 @@ export default new (class CartService {
       return res.status(500).json({ error });
     }
   }
+
+  deleteCart = async (req: Request, res: Response): Promise<Response> => {
+    try {
+      const { id } = req.params;
+
+      const cart = await this.cartRepository.findOneBy({ id: Number(id) });
+      if (!cart) return res.status(404).json({ message: "Cart not found" });
+      await this.cartRepository.remove(cart);
+      return res.status(200).json({ message: "Cart deleted" });
+    } catch (error) {
+      return res.status(500).json({ error });
+    }
+  };
 })();

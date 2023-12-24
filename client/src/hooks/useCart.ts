@@ -1,4 +1,4 @@
-import { useQuery } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import api from "../libs/api";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
@@ -8,7 +8,7 @@ function useCart() {
   const token = localStorage.getItem("token");
   const id: number = useSelector((state: any) => state.user.user.id);
   const [userID, setUserID] = useState(id);
-  const { data, isLoading, isError } = useQuery("cart", async () => {
+  const { data, isLoading, isError, refetch } = useQuery("cart", async () => {
     const res = await api.get(`/cart/${userID}`);
     return res.data.carts;
   });
@@ -32,7 +32,14 @@ function useCart() {
     };
   });
 
-  return { dataCart, isLoading, isError, userID };
+  //delete cart
+  const deleteCart = async (id: number) => {
+    const res = await api.delete(`/cart/${id}`);
+    console.log(res.data);
+    refetch();
+  };
+
+  return { dataCart, isLoading, isError, userID, deleteCart };
 }
 
 export default useCart;
