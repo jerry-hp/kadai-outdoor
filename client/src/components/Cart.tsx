@@ -5,7 +5,8 @@ import useCart from "../hooks/useCart";
 import { CgSearchLoading } from "react-icons/cg";
 import { TbError404Off } from "react-icons/tb";
 function Cart({ setShowCart }: { setShowCart: React.Dispatch<React.SetStateAction<boolean>> }) {
-  const { dataCart, isLoading, isError, userID, deleteCart } = useCart();
+  const { dataCart, isLoading, isError, userID, deleteCart, totalPriceCart, createTransaction } = useCart();
+  // console.log({ dataCart, totalPriceCart });
   return (
     <div className="min-h-screen  box-border p-2">
       <div className=" bg-[#0B2545] absolute top-0  left-0 right-0 py-2 ">
@@ -42,8 +43,11 @@ function Cart({ setShowCart }: { setShowCart: React.Dispatch<React.SetStateActio
           ))}
         </div>
       )}
-      <div className="flex justify-center">
-        <button className="text-[#EEF4ED] w-[90%] bg-[#0B2545] py-2 rounded-lg font-bold mt-10  absolute bottom-1 ">Checkout</button>
+      <div className="flex flex-col  mx-auto justify-center w-[96%]  absolute bottom-1">
+        <h2 className="text-[#0B2545] font-bold text-base">Cart Total : {totalPriceCart}</h2>
+        <button onClick={createTransaction} className="text-[#EEF4ED] w-[100%] bg-[#0B2545] py-2 rounded-lg font-bold mt-2  ">
+          Checkout
+        </button>
       </div>
     </div>
   );
