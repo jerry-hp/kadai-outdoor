@@ -5,6 +5,7 @@ import logoArei from "../assets/arei.png";
 import logoConsina from "../assets/consina.png";
 import { MdArrowRight } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
+import { FaTag } from "react-icons/fa6";
 function FilterProducts() {
   const { filteredProducts, isLoading, isError, category } = useFilterProducts();
   const plural = category == "clothes" || category === "shoes" ? "" : "s";
@@ -24,7 +25,9 @@ function FilterProducts() {
             <img src={item.product_image} alt="" className="w-full rounded-[8px_8px_0_0] h-[200px]" />
             <p className="text-[#0B2545] text-[14px] font-semibold">{item.product_name}</p>
             <div className="flex justify-between items-center">
-              <p className="text-[#0B2545] text-lg font-semibold">{item.product_price}</p>
+              <p className="text-[#0B2545] flex items-center gap-1 text-lg font-semibold">
+                <FaTag /> {item.product_price}
+              </p>
               <img src={item.product_brand === "CONSINA" ? logoConsina : item.product_brand === "EIGER" ? logoEiger : logoArei} className="w-[28px]" alt="" />
             </div>
           </div>

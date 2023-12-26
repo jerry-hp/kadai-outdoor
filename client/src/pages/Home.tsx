@@ -3,6 +3,7 @@ import useHome from "../hooks/useHome";
 import { RiShirtFill } from "react-icons/ri";
 import { PiPantsFill } from "react-icons/pi";
 import { GiRunningShoe, GiSlippers, GiCampingTent, GiBackpack } from "react-icons/gi";
+import { FaTag } from "react-icons/fa6";
 import { CgSearchLoading } from "react-icons/cg";
 import { TbError404Off } from "react-icons/tb";
 import ImageSlider from "../components/ImageSlider";
@@ -76,7 +77,10 @@ function Home() {
                   <img src={item.product_image} alt="" className="w-full rounded-[8px_8px_0_0] h-[200px]" />
                   <p className="text-[#0B2545] text-[14px] font-semibold">{item.product_name}</p>
                   <div className="flex justify-between items-center">
-                    <p className="text-[#0B2545] text-lg font-semibold">{item.product_price}</p>
+                    <p className="text-[#0B2545] flex items-center gap-1 text-lg font-semibold">
+                      <FaTag />
+                      {item.product_price}
+                    </p>
                     <img src={item.product_brand === "CONSINA" ? logoConsina : item.product_brand === "EIGER" ? logoEiger : logoArei} className="w-[28px]" alt="" />
                   </div>
                 </div>

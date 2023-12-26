@@ -6,6 +6,7 @@ import { CgSearchLoading } from "react-icons/cg";
 import { TbError404Off } from "react-icons/tb";
 function Cart({ setShowCart }: { setShowCart: React.Dispatch<React.SetStateAction<boolean>> }) {
   const { dataCart, isLoading, isError, userID, deleteCart, totalPriceCart, createTransaction } = useCart();
+  console.log({ dataCart });
   // console.log({ dataCart, totalPriceCart });
   return (
     <div className="min-h-screen  box-border p-2">
@@ -25,6 +26,10 @@ function Cart({ setShowCart }: { setShowCart: React.Dispatch<React.SetStateActio
         </div>
       ) : !userID ? (
         ""
+      ) : dataCart.length === 0 ? (
+        <div className="flex justify-center items-center min-h-screen gap-1">
+          <h3 className="text-[#0B2545] font-bold text-1xl">Cart Kosong</h3>
+        </div>
       ) : (
         <div className="flex flex-col gap-2 mt-10 overflow-auto max-h-[80vh]">
           {dataCart?.map((item: any, index: number) => (
@@ -43,12 +48,14 @@ function Cart({ setShowCart }: { setShowCart: React.Dispatch<React.SetStateActio
           ))}
         </div>
       )}
-      <div className="flex flex-col  mx-auto justify-center w-[96%]  absolute bottom-1">
-        <h2 className="text-[#0B2545] font-bold text-base">Cart Total : {totalPriceCart}</h2>
-        <button onClick={createTransaction} className="text-[#EEF4ED] w-[100%] bg-[#0B2545] py-2 rounded-lg font-bold mt-2  ">
-          Checkout
-        </button>
-      </div>
+      {dataCart.length !== 0 && (
+        <div className="flex flex-col  mx-auto justify-center w-[96%]  absolute bottom-1">
+          <h2 className="text-[#0B2545] font-bold text-base">Cart Total : {totalPriceCart}</h2>
+          <button onClick={createTransaction} className="text-[#EEF4ED] w-[100%] bg-[#0B2545] py-2 rounded-lg font-bold mt-2  ">
+            Checkout
+          </button>
+        </div>
+      )}
     </div>
   );
 }

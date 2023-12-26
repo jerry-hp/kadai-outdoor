@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable, ManyToOne, JoinColumn } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable, ManyToOne, JoinColumn, DeleteDateColumn } from "typeorm";
 import { Product } from "./product";
 import { User } from "./user";
 
@@ -22,4 +22,7 @@ export class Cart {
 
   @Column()
   total_price: number;
+
+  @DeleteDateColumn({ type: "timestamp", nullable: true })
+  deletedAt: Date;
 }

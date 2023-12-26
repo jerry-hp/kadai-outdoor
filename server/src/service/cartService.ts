@@ -22,7 +22,7 @@ export default new (class CartService {
       const { userId } = req.params;
       console.log({ userId });
 
-      const carts = await this.cartRepository.find({ where: { user: { id: Number(userId) } }, withDeleted: true, relations: ["user", "product_id"] });
+      const carts = await this.cartRepository.find({ where: { user: { id: Number(userId) } }, relations: ["user", "product_id"] });
 
       return res.status(200).json({ carts });
     } catch (error) {

@@ -4,6 +4,8 @@ import { GoDotFill } from "react-icons/go";
 import { useState } from "react";
 function ImageSlider() {
   const [activeSlide, setActiveSlide] = useState(0);
+  const [transition, setTransition] = useState(false);
+  const [isToRight, setIsToRight] = useState(true);
   const slides = [
     tes,
     "https://thumbor.sirclocdn.com/unsafe/1280x354/filters:format(webp)/magento.eigeradventure.com/media/weltpixel/owlcarouselslider/images/m/a/main_banner_1800x750_20_.jpg",
@@ -13,11 +15,15 @@ function ImageSlider() {
   ];
 
   const nextSlide = () => {
+    setTransition(true);
+    setIsToRight(true);
     const isLastSlide = activeSlide === slides.length - 1;
     const slide = isLastSlide ? 0 : activeSlide + 1;
     setActiveSlide(slide);
   };
   const prevSlide = () => {
+    setTransition(true);
+    setIsToRight(false);
     const isFirstSlide = activeSlide === 0;
     const slide = isFirstSlide ? slides.length - 1 : activeSlide - 1;
     setActiveSlide(slide);
@@ -28,7 +34,14 @@ function ImageSlider() {
   };
   return (
     <div className="h-[350px] flex rounded-lg relative">
-      <img src={slides[activeSlide]} alt="tes" className="w-full h-full rounded-lg" />
+      <div className="w-full h-full overflow-hidden">
+        <img
+          src={slides[activeSlide]}
+          alt="tes"
+          className={`w-full h-full rounded-lg  ${transition ? `transition-all ${isToRight ? "translate-x-full" : "-translate-x-full"} ease-in-out duration-500` : ""}`}
+          onTransitionEnd={() => setTransition(false)}
+        />
+      </div>
       <div className="absolute top-1/2 left-3 text-[#0B2545] bg-white/[0.2] backdrop-blur-sm rounded-lg p-1 translate-y-[-50%] cursor-pointer">
         <MdOutlineArrowBackIosNew size={30} onClick={prevSlide} />
       </div>

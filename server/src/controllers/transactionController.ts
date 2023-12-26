@@ -9,4 +9,8 @@ export default new (class transactionController {
   async createTransaction(req: Request, res: Response): Promise<Response> {
     return await transactionService.createTransaction(req, res);
   }
+
+  async updateTransaction(req: Request, res: Response): Promise<Response> {
+    return await transactionService.updateTransaction(req, res);
+  }
 })();

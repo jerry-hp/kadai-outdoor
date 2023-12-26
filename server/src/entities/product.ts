@@ -30,8 +30,6 @@ export class Product {
   @OneToMany(() => Size, (size) => size.product)
   product_size: Size[];
 
-  
-
   @DeleteDateColumn({ type: "timestamp", nullable: true })
   deletedAt: Date;
 }

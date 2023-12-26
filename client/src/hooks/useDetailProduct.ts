@@ -42,6 +42,16 @@ function useDetailProduct() {
     handlePrice();
   }, [total]);
 
+  //decide if size is available
+  const sizes = ["S", "M", "L", "XL"];
+  const IsAvailable = sizes.map((item: any) => {
+    if (productById[0]?.product_size.map((x: any) => x.size).includes(item)) {
+      return true;
+    } else {
+      return false;
+    }
+  });
+
   //refectch cart
   const { refetch } = useHeader();
   //add to cart
@@ -62,7 +72,7 @@ function useDetailProduct() {
     mutation.mutate();
   };
 
-  return { productById, isLoading, isError, setDataCart, dataCart, total, setTotal, addToCart };
+  return { productById, isLoading, isError, setDataCart, dataCart, total, setTotal, addToCart, IsAvailable, sizes };
 }
 
 export default useDetailProduct;
