@@ -10,7 +10,6 @@ import { TiShoppingCart } from "react-icons/ti";
 
 function DetailProduct() {
   const { productById, isLoading, isError, setDataCart, dataCart, total, setTotal, addToCart, IsAvailable, sizes } = useDetailProduct();
-  console.log(productById[0]);
 
   return (
     <div className="max-w-6xl mx-auto my-2 box-border flex gap-2">

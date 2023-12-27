@@ -7,6 +7,7 @@ import userRoute from "./routes/userRoute";
 import sizeRoute from "./routes/sizeRoute";
 import cartRoute from "./routes/cartRoute";
 import transactionRoute from "./routes/transactionRoute";
+import wishListRoute from "./routes/wishListRoute";
 
 AppDataSource.initialize()
   .then(async () => {
@@ -21,6 +22,7 @@ AppDataSource.initialize()
     app.use("/api", sizeRoute);
     app.use("/api", cartRoute);
     app.use("/api", transactionRoute);
+    app.use("/api", wishListRoute);
 
     app.listen(3000, () => {
       console.log("Server is running on port 3000");

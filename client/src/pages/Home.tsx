@@ -73,10 +73,10 @@ function Home() {
           <div className="my-1 sm:my-3 flex justify-between gap-2 flex-wrap">
             {products &&
               products.map((item: product, index: number) => (
-                <div key={index} onClick={() => goToProductDetail(String(item.id))} className="relative w-[23%] hover:scale-110 cursor-pointer">
-                  <img src={item.product_image} alt="" className="w-full rounded-[8px_8px_0_0] h-[200px]" />
-                  <p className="text-[#0B2545] text-[14px] font-semibold">{item.product_name}</p>
-                  <div className="flex justify-between items-center">
+                <div key={index} onClick={() => goToProductDetail(String(item.id))} className="relative w-[23%] shadow-[0_0px_5px_0_rgba(0,0,0,0.2)] rounded-[6px] hover:scale-110 cursor-pointer">
+                  <img src={item.product_image} alt="" className="w-full rounded-[6px_6px_0_0] h-[200px]" />
+                  <p className="text-[#0B2545] text-[14px] font-semibold whitespace-nowrap overflow-hidden text-ellipsis box-border p-1">{item.product_name}</p>
+                  <div className="flex justify-between items-center box-border p-1">
                     <p className="text-[#0B2545] flex items-center gap-1 text-lg font-semibold">
                       <FaTag />
                       {item.product_price}

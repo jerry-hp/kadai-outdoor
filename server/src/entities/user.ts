@@ -1,6 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
 import { Cart } from "./cart";
 import { Transactions } from "./Transactions";
+import { WishList } from "./wistList";
 @Entity()
 export class User {
   @PrimaryGeneratedColumn()
@@ -27,9 +28,12 @@ export class User {
   @Column({ nullable: true })
   phone: string;
 
-  @OneToMany((type) => Cart, (cart) => cart.user)
+  @OneToMany(() => Cart, (cart) => cart.user)
   cart: Cart[];
 
-  @OneToMany((type) => Transactions, (transaction) => transaction.user)
+  @OneToMany(() => Transactions, (transaction) => transaction.user)
   transactions: Transactions[];
+
+  @OneToMany(() => WishList, (wishList) => wishList.user)
+  wishList: WishList[];
 }

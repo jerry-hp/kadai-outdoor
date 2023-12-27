@@ -3,30 +3,53 @@ import { useParams } from "react-router-dom";
 import api from "../libs/api";
 import { useEffect, useState } from "react";
 import useHeader from "./useHeader";
+import { product } from "../types";
+import { useSelector } from "react-redux";
 function useDetailProduct() {
-  const { id } = useParams();
   const [total, setTotal] = useState(1);
+  const { id } = useParams();
+  const userId = useSelector((state: any) => state.user.user.id);
+  const [data, setData] = useState<Array<product>>([]);
 
   //api product by id
-  const { data, isLoading, isError } = useQuery("detailProduct", async () => {
-    const res = await api.get("/products/" + id);
-    return res.data.product;
+  const {
+    data: dataQuery,
+    isLoading,
+    isError,
+    refetch: refetchProductDetail,
+  } = useQuery("detailProduct", async () => {
+    try {
+      const res = await api.get(`/products/${Number(id)}`);
+      return res.data.product;
+    } catch (error) {
+      console.log("Error fetching product details:", error);
+    }
   });
+  useEffect(() => {
+    refetchProductDetail();
+  }, [id]);
+  useEffect(() => {
+    if (dataQuery) {
+      setData(dataQuery);
+    }
+  }, [dataQuery]);
 
-  const productById = data?.map((item: any) => {
-    const rupiah = new Intl.NumberFormat("id-ID", {
-      style: "currency",
-      currency: "IDR",
+  const productById =
+    data &&
+    data?.map((item: any) => {
+      const rupiah = new Intl.NumberFormat("id-ID", {
+        style: "currency",
+        currency: "IDR",
+      });
+      return {
+        ...item,
+        product_price: rupiah.format(item.product_price),
+      };
     });
-    return {
-      ...item,
-      product_price: rupiah.format(item.product_price),
-    };
-  });
 
   //state data Cart
   const [dataCart, setDataCart] = useState({
-    user_id: 19,
+    user_id: userId,
     product_id: id,
     quantity: 1,
     size: "",
@@ -34,13 +57,18 @@ function useDetailProduct() {
   });
 
   const handlePrice = async () => {
-    const price = await data[0]?.product_price;
-    setDataCart({ ...dataCart, quantity: total, total_price: price * total });
+    const price = data && data[0]?.product_price;
+    console.log({ price });
+    setDataCart({ ...dataCart, quantity: total, total_price: price });
   };
 
   useEffect(() => {
-    handlePrice();
-  }, [total]);
+    if (total === 1 || dataQuery) {
+      handlePrice();
+    } else {
+      handlePrice();
+    }
+  }, [total, dataQuery]);
 
   //decide if size is available
   const sizes = ["S", "M", "L", "XL"];
@@ -59,7 +87,7 @@ function useDetailProduct() {
     "cart",
     async () => {
       const res = await api.post("/cart", dataCart);
-      console.log(res);
+      console.log("yy", res.data);
     },
     {
       onSuccess: () => {

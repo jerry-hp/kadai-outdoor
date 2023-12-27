@@ -35,7 +35,7 @@ export default new (class CartService {
     try {
       const { product_id, user_id, quantity, size, total_price } = req.body;
 
-      //c
+      console.log("yyyy", req.body);
       const product = await this.productRepository.findOne({ where: { id: Number(product_id) } });
 
       const dataCart = {

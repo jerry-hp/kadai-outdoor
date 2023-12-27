@@ -8,11 +8,15 @@ import { MdNotifications } from "react-icons/md";
 import useHeader from "../hooks/useHeader";
 import { useState } from "react";
 import WishList from "./WishList";
+import Notification from "./Notification";
+import { BsThreeDotsVertical } from "react-icons/bs";
+import useWishList from "../hooks/useWishList";
 
 function Header() {
   const { user, showCart, setShowCart, userID, data } = useHeader();
   const [isOpenWishLish, setIsOpenWishLish] = useState(false);
   const [isOpenNotif, setIsOpenNotif] = useState(false);
+  const { wistList } = useWishList();
 
   return (
     <div className="bg-[#0B2545] p-3">
@@ -35,24 +39,31 @@ function Header() {
             <Link to={"#"}>
               <li onClick={() => setIsOpenNotif(!isOpenNotif)} className="text-[#EEF4ED] cursor-pointer  relative z-50 ">
                 <MdNotifications onMouseEnter={() => setIsOpenWishLish(false)} className="hover:text-[#8da9c4]" />
-                <div onMouseLeave={() => setIsOpenNotif(false)} className={`${isOpenNotif ? "block" : "hidden"} absolute z-50 right-[100%] w-[300px] h-[300px] bg-[#8da9c4] text-[#0B2545] rounded-[0_0_8px_8px] box-border `}>
-                  <h3 className="p-1 font-semibold shadow-[0_0_10px_0_#0B2545] ">Notification</h3>
+                <div onMouseLeave={() => setIsOpenNotif(false)} className={`${isOpenNotif ? "block" : "hidden"} absolute z-50 right-[100%] w-[300px] h-max bg-[#8da9c4] text-[#0B2545] rounded-[0_0_8px_8px] box-border pb-2`}>
+                  <div className="flex justify-between items-center p-1  ">
+                    <h3 className="p-1 font-bold">Notifications (1)</h3>
+                    <BsThreeDotsVertical />
+                  </div>
+                  <div className="">
+                    <Notification />
+                  </div>
                 </div>
               </li>
             </Link>
           )}
           {userID && (
-            <Link to={"#"}>
               <li onClick={() => setIsOpenWishLish(!isOpenWishLish)} className="text-[#EEF4ED]  cursor-pointer relative z-50 ">
                 <BsClipboardHeartFill onMouseEnter={() => setIsOpenNotif(false)} className="hover:text-[#8da9c4]" />
-                <div onMouseLeave={() => setIsOpenWishLish(false)} className={`${isOpenWishLish ? "block" : "hidden"} absolute z-50 right-[100%] w-[300px] h-[300px] bg-[#8da9c4] text-[#0B2545] rounded-[8px_0_8px_8px] box-border  `}>
-                  <h3 className="p-1 font-semibold shadow-[0_0_10px_0_#0B2545] ">WishList</h3>
-                  <div className="p-1">
+                <div onMouseLeave={() => setIsOpenWishLish(false)} className={`${isOpenWishLish ? "block" : "hidden"} absolute z-50 right-[100%] w-[300px] h-max bg-[#8da9c4] text-[#0B2545] rounded-[8px_0_8px_8px] box-border pb-2  `}>
+                  <div className="flex justify-between items-center p-1 cursor-default  ">
+                    <h3 className="p-1 font-bold">WishList ({wistList?.length})</h3>
+                    <BsThreeDotsVertical />
+                  </div>
+                  <div className="">
                     <WishList />
                   </div>
                 </div>
               </li>
-            </Link>
           )}
           <li>
             {userID && (

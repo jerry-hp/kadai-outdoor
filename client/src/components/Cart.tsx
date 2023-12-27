@@ -6,8 +6,6 @@ import { CgSearchLoading } from "react-icons/cg";
 import { TbError404Off } from "react-icons/tb";
 function Cart({ setShowCart }: { setShowCart: React.Dispatch<React.SetStateAction<boolean>> }) {
   const { dataCart, isLoading, isError, userID, deleteCart, totalPriceCart, createTransaction } = useCart();
-  console.log({ dataCart });
-  // console.log({ dataCart, totalPriceCart });
   return (
     <div className="min-h-screen  box-border p-2">
       <div className=" bg-[#0B2545] absolute top-0  left-0 right-0 py-2 ">

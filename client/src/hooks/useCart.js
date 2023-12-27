@@ -55,8 +55,6 @@ function useCart() {
     setTransactionToken(res.data.transactionToken);
   };
 
-  // const pembayaran = localStorage.getItem("pembayaran");
-  // console.log({ pembayaran });
   useEffect(() => {
     if (transactionToken) {
       window.snap.pay(transactionToken, {
