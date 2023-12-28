@@ -23,9 +23,9 @@ function Cart() {
         dataCart?.map((item: any, index: number) => (
           <div key={index} className="flex gap-1  bg-[#eef4ed] text-[#0B2545] box-border p-3 mb-1">
             <img className="w-[20%] rounded-md" src={item.product_id[0]?.product_image} alt="" />
-            <div className="flex flex-col justify-between  overflow-hidden">
+            <div className="flex flex-col justify-between w-full  overflow-hidden">
               <p className="font-bold whitespace-nowrap overflow-hidden text-ellipsis ">{item.product_id[0]?.product_name}</p>
-              <div className="flex flex-row gap-4  text-[13px] font-bold">
+              <div className="flex  flex-row  w-full justify-between items-center text-[13px] font-bold">
                 <div>
                   <p>Price amount</p>
                   <p className="flex gap-1 items-center">
@@ -45,7 +45,7 @@ function Cart() {
                     <RxWidth /> {item.size}
                   </p>
                 </div>
-                <div className="flex ml-auto mt-auto text-medium border border-[#0B2545] rounded-md w-7 h-7  q justify-center items-center">
+                <div className="flex  text-medium  border border-[#0B2545] rounded-md w-7 h-7  q justify-center items-center">
                   <ImBin2 onClick={() => deleteCart(item.id)} />
                 </div>
               </div>
