@@ -12,7 +12,7 @@ function Profile() {
   const { isNumber, setIsNumber, isAddress, setIsAddress, cancel, handleChange, handleUpdateProfile, isName, setIsName, isEmail, setIsEmail } = useProfile();
 
   return (
-    <div className="max-w-6xl mx-auto box-border p-2 sm:p-0 ">
+    <div className="max-w-6xl mx-auto box-border p-2 sm:p-0 min-h-screen ">
       <form action="" className=" shadow-[0_0_5px_0_#0B2545] mx-auto mt-16 sm:mt-24 box-border p-2 sm:p-5 flex flex-col gap-1 sm:gap-2 rounded-lg sm:w-[50%] lg:w-[40%] relative">
         <img src={user.image} alt="" className="w-20 h-20 rounded-full mx-auto" />
         {/* name */}

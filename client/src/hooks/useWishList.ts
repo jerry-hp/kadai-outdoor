@@ -2,12 +2,11 @@ import { useQuery } from "react-query";
 import api from "../libs/api";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import useDetailProduct from "./useDetailProduct";
 function useWishList() {
   const userId = useSelector((state: any) => state.user.user.id);
 
   //get data wishList
-  const { isLoading, data } = useQuery("wishList", async () => {
+  const { isLoading, data, refetch } = useQuery("wishList", async () => {
     const res = await api.get("/wish-list/" + userId);
     return res.data.wishList;
   });
@@ -31,10 +30,9 @@ function useWishList() {
   //navigate to detail product
   const navigate = useNavigate();
   const handleNavigate = async (id: number) => {
-   
     navigate(`/detail-product/${id}`);
   };
 
-  return { isLoading, wistList, handleNavigate };
+  return { isLoading, wistList, handleNavigate, refetch };
 }
 export default useWishList;

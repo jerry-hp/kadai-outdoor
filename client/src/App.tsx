@@ -16,6 +16,9 @@ import Admin from "./admin/FormProduct";
 import PrivateAdmin from "./components/PrivateAdmin";
 import CrateProduct from "./admin/CreateProduct";
 import Transaction from "./admin/Transaction";
+import NavbarBottom from "./components/NavbarBottom";
+import Cart from "./pages/CartPage";
+import WishListPage from "./pages/WishListPage";
 
 const queryClient = new QueryClient();
 function App() {
@@ -33,6 +36,7 @@ function App() {
                       <>
                         <Header />
                         <Home />
+                        <NavbarBottom />
                       </>
                     }
                   />
@@ -42,6 +46,7 @@ function App() {
                       <>
                         <Header />
                         <FilterProducts />
+                        <NavbarBottom />
                       </>
                     }
                   />
@@ -51,6 +56,23 @@ function App() {
                       <>
                         <Header />
                         <DetailProduct />
+                        <NavbarBottom />
+                      </>
+                    }
+                  />
+                  <Route
+                    path="/cart"
+                    element={
+                      <>
+                        <Cart />
+                      </>
+                    }
+                  />
+                  <Route
+                    path="/wish-list"
+                    element={
+                      <>
+                        <WishListPage />
                       </>
                     }
                   />
@@ -60,6 +82,7 @@ function App() {
                       <>
                         <Header />
                         <Profile />
+                        <NavbarBottom />
                       </>
                     }
                   />

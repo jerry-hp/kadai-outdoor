@@ -7,9 +7,10 @@ import { TbError404Off } from "react-icons/tb";
 import { FaTag } from "react-icons/fa6";
 import { BsClipboardHeartFill } from "react-icons/bs";
 import { TiShoppingCart } from "react-icons/ti";
+import { LuMinusCircle, LuPlusCircle } from "react-icons/lu";
 
 function DetailProduct() {
-  const { productById, isLoading, isError, setDataCart, dataCart, total, setTotal, addToCart, IsAvailable, sizes } = useDetailProduct();
+  const { productById, isLoading, isError, setDataCart, dataCart, total, setTotal, addToCart, IsAvailable, sizes, addToWishList } = useDetailProduct();
 
   return (
     <div className="max-w-6xl mx-auto my-2 box-border flex gap-2">
@@ -25,10 +26,10 @@ function DetailProduct() {
         </div>
       ) : (
         productById.length === 1 && (
-          <div className="w-full flex gap-2 box-border">
-            <img className="w-3/5 rounded-lg" src={productById[0]?.product_image} alt="" />
-            <div className="w-2/5 p-2 ">
-              <img src={productById[0]?.product_brand === "CONSINA" ? logoConsina : productById[0]?.product_brand === "EIGER" ? logoEiger : logoArei} className="w-[50px] mx-auto" alt="" />
+          <div className="w-full sm:flex gap-2 box-border ">
+            <img className="w-[95%] sm:w-3/5 mx-2 sm:m-0 rounded-lg" src={productById[0]?.product_image} alt="" />
+            <div className="w-full sm:w-2/5 p-2 ">
+              <img src={productById[0]?.product_brand === "CONSINA" ? logoConsina : productById[0]?.product_brand === "EIGER" ? logoEiger : logoArei} className="hidden sm:block w-[50px] mx-auto" alt="" />
               <h3 className="text-[#0B2545] text-xl font-bold my-1 sm:my-2">{productById[0]?.product_name}</h3>
               <h5 className="text-[#0B2545] text-lg font-bold my-1 sm:my-2 flex items-center gap-1">
                 <FaTag />
@@ -50,13 +51,13 @@ function DetailProduct() {
                   ))}
                 </div>
                 <p className="text-[#0B2545] mt-2 ">TOTAL: {total}</p>
-                <div className="border-[1px] text-[#0B2545] text-xl border-[#0B2545] p-1 rounded-lg   w-20 h-10 flex gap-3 justify-around items-center">
+                <div className="border-[1px] text-[#0B2545] text-xl border-[#0B2545] p-1 rounded-lg   w-max h-10 flex gap-5 justify-around items-center">
                   <button onClick={() => setTotal(total - 1)} disabled={total <= 1} className=" text-xl font-bold cursor-pointer disabled:opacity-20">
-                    -
+                    <LuMinusCircle />
                   </button>
                   {total}
                   <button onClick={() => setTotal(total + 1)} className=" text-xl font-bold cursor-pointer">
-                    +
+                    <LuPlusCircle />
                   </button>
                 </div>
                 <div className="flex gap-2 my-3 ">
@@ -67,7 +68,7 @@ function DetailProduct() {
                   >
                     <TiShoppingCart />
                   </button>
-                  <button disabled={dataCart.size == ""} className="w-1/5 flex items-center justify-center bg-[#0B2545] disabled:cursor-not-allowed disabled:opacity-50 text-[#EEF4ED]  h-10 rounded-lg font-bold cursor-pointer">
+                  <button onClick={addToWishList} className="w-1/5 flex items-center justify-center bg-[#0B2545] disabled:cursor-not-allowed disabled:opacity-50 text-[#EEF4ED]  h-10 rounded-lg font-bold cursor-pointer">
                     <BsClipboardHeartFill />
                   </button>
                 </div>

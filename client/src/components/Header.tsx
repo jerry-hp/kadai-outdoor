@@ -18,18 +18,19 @@ function Header() {
   const [isOpenNotif, setIsOpenNotif] = useState(false);
   const { wistList } = useWishList();
 
+  console.log(wistList);
   return (
     <div className="bg-[#0B2545] p-3">
       {isOpenNotif || isOpenWishLish ? <div className="fixed top-0 left-0 right-0 bottom-0 bg-[#0B2545] opacity-30 z-10" onClick={() => setIsOpenWishLish(false)} /> : null}
       <div className="mx-auto max-w-6xl flex flex-row justify-between items-center shadow-2xl">
-        <img src={logo} alt="logo" className="w-40" />
+        <img src={logo} alt="logo" className="w-28 sm:w-40" />
         {userID && (
-          <div className="flex flex-row items-center bg-[#EEF4ED] p-1 rounded-lg w-96">
+          <div className="flex flex-row items-center bg-[#EEF4ED] p-1 rounded-lg w-30 sm:w-96">
             <input className="bg-transparent outline-none w-full" type="text" placeholder="Search products" />
             <FaSearch className="text-[#0B2545] cursor-pointer" />
           </div>
         )}
-        <ul className="flex flex-row items-center gap-4">
+        <ul className="hidden sm:flex flex-row items-center gap-4">
           {userID && (
             <Link to={"/"}>
               <li className="text-[#EEF4ED] cursor-pointer hover:text-[#8da9c4]">Home</li>
@@ -52,18 +53,23 @@ function Header() {
             </Link>
           )}
           {userID && (
-              <li onClick={() => setIsOpenWishLish(!isOpenWishLish)} className="text-[#EEF4ED]  cursor-pointer relative z-50 ">
-                <BsClipboardHeartFill onMouseEnter={() => setIsOpenNotif(false)} className="hover:text-[#8da9c4]" />
-                <div onMouseLeave={() => setIsOpenWishLish(false)} className={`${isOpenWishLish ? "block" : "hidden"} absolute z-50 right-[100%] w-[300px] h-max bg-[#8da9c4] text-[#0B2545] rounded-[8px_0_8px_8px] box-border pb-2  `}>
-                  <div className="flex justify-between items-center p-1 cursor-default  ">
-                    <h3 className="p-1 font-bold">WishList ({wistList?.length})</h3>
-                    <BsThreeDotsVertical />
-                  </div>
-                  <div className="">
-                    <WishList />
-                  </div>
+            <li onClick={() => setIsOpenWishLish(!isOpenWishLish)} className="text-[#EEF4ED]  cursor-pointer relative z-50 ">
+              <BsClipboardHeartFill onMouseEnter={() => setIsOpenNotif(false)} className="hover:text-[#8da9c4]" />
+              {wistList?.length > 0 && (
+                <div className=" absolute top-[-7px]  right-[-7px] w-[14px] h-[14px] rounded-full bg-[#EEF4ED] text-[#0B2545] flex justify-center items-center ">
+                  <p>{wistList?.length}</p>
                 </div>
-              </li>
+              )}
+              <div onMouseLeave={() => setIsOpenWishLish(false)} className={`${isOpenWishLish ? "block" : "hidden"} absolute z-50 right-[100%] w-[300px] h-max bg-[#8da9c4] text-[#0B2545] rounded-[8px_0_8px_8px] box-border pb-2  `}>
+                <div className="flex justify-between items-center p-1 cursor-default  ">
+                  <h3 className="p-1 font-bold">WishList ({wistList?.length})</h3>
+                  <BsThreeDotsVertical />
+                </div>
+                <div className="">
+                  <WishList />
+                </div>
+              </div>
+            </li>
           )}
           <li>
             {userID && (

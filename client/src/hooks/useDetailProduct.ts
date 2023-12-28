@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import useHeader from "./useHeader";
 import { product } from "../types";
 import { useSelector } from "react-redux";
+import useWishList from "./useWishList";
 function useDetailProduct() {
   const [total, setTotal] = useState(1);
   const { id } = useParams();
@@ -100,7 +101,31 @@ function useDetailProduct() {
     mutation.mutate();
   };
 
-  return { productById, isLoading, isError, setDataCart, dataCart, total, setTotal, addToCart, IsAvailable, sizes };
+  //add to wishlist
+  const dataWishList = {
+    userId,
+    productId: id,
+  };
+
+  const { refetch: refetchWishList } = useWishList();
+  const mutat = useMutation(
+    "wishList",
+    async () => {
+      const res = await api.post("/wish-list", dataWishList);
+      console.log("hasil:", res.data);
+    },
+    {
+      onSuccess: () => {
+        refetchWishList();
+      },
+    }
+  );
+
+  const addToWishList = () => {
+    mutat.mutate();
+  };
+
+  return { productById, isLoading, isError, setDataCart, dataCart, total, setTotal, addToCart, IsAvailable, sizes, addToWishList };
 }
 
 export default useDetailProduct;

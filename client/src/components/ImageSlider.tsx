@@ -33,7 +33,7 @@ function ImageSlider() {
     setActiveSlide(slideIndex);
   };
   return (
-    <div className="h-[350px] flex rounded-lg relative">
+    <div className="h-[200px] sm:h-[350px] flex rounded-lg relative">
       <div className="w-full h-full overflow-hidden">
         <img
           src={slides[activeSlide]}
@@ -42,11 +42,11 @@ function ImageSlider() {
           onTransitionEnd={() => setTransition(false)}
         />
       </div>
-      <div className="absolute top-1/2 left-3 text-[#0B2545] bg-white/[0.2] backdrop-blur-sm rounded-lg p-1 translate-y-[-50%] cursor-pointer">
-        <MdOutlineArrowBackIosNew size={30} onClick={prevSlide} />
+      <div className="absolute top-1/2 left-1 sm:left-3 text-[#0B2545]  bg-white/[0.2] backdrop-blur-sm rounded-lg p-[1px] sm:p-1 translate-y-[-50%] cursor-pointer">
+        <MdOutlineArrowBackIosNew size={30} className="w-4" onClick={prevSlide} />
       </div>
-      <div className="absolute top-1/2 right-3 text-[#0B2545] bg-white/[0.2] backdrop-blur-sm rounded-lg p-1 translate-y-[-50%] cursor-pointer">
-        <MdOutlineArrowForwardIos size={30} onClick={nextSlide} />
+      <div className="absolute top-1/2 right-1 sm:right-3 text-[#0B2545] bg-white/[0.2] backdrop-blur-sm rounded-lg p-[1px] sm:p-1 translate-y-[-50%] cursor-pointer">
+        <MdOutlineArrowForwardIos size={30} className="w-4" onClick={nextSlide} />
       </div>
       <div className="absolute bottom-1 left-1/2 flex items-center text-white  p-1 translate-x-[-50%] cursor-pointer">
         {slides.map((_, index: number) => (
