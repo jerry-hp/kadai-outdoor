@@ -11,7 +11,7 @@ function FilterProducts() {
   const plural = category == "clothes" || category === "shoes" ? "" : "s";
   const navigate = useNavigate();
   return (
-    <div className=" p-2 lg:p-0 box-border max-w-6xl mx-auto  min-h-screen ">
+    <div className=" p-2 lg:p-0 box-border max-w-6xl mx-auto  min-h-[70vh] ">
       <div className="text-[#0B2545] text-[14px] font-bold my-1 sm:my-1 flex items-center ">
         Category
         <MdArrowRight />

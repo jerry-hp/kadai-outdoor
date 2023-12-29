@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import logo from "../../assets/logo.png";
 import { FaWpforms, FaHome } from "react-icons/fa";
 import { FaMoneyBillTransfer, FaUsers } from "react-icons/fa6";
+import { MdNotifications } from "react-icons/md";
 function Sidebar() {
   return (
     <div className="bg-[#0B2545] text-white w-1/5 p-4">
@@ -29,6 +30,12 @@ function Sidebar() {
           <Link to="#" className="flex items-center gap-2">
             <FaUsers />
             Users
+          </Link>
+        </li>
+        <li>
+          <Link to="#" className="flex items-center gap-2">
+            <MdNotifications />
+            Notification
           </Link>
         </li>
       </ul>
