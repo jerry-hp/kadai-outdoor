@@ -27,7 +27,7 @@ function DetailProduct() {
       ) : (
         productById.length === 1 && (
           <div className="w-full sm:flex gap-2 box-border ">
-            <img className="w-[95%] sm:w-3/5 mx-2 sm:m-0 rounded-lg" src={productById[0]?.product_image} alt="" />
+            <img className="w-[95%] sm:w-3/5 mx-2 sm:ml-2 lg-ml-0 sm:m-0 rounded-lg" src={productById[0]?.product_image} alt="" />
             <div className="w-full sm:w-2/5 p-2 ">
               <img src={productById[0]?.product_brand === "CONSINA" ? logoConsina : productById[0]?.product_brand === "EIGER" ? logoEiger : logoArei} className="hidden sm:block w-[50px] mx-auto" alt="" />
               <h3 className="text-[#0B2545] text-xl font-bold my-1 sm:my-2">{productById[0]?.product_name}</h3>

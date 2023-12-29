@@ -6,6 +6,10 @@ export default new (class ProductController {
     return await ProductService.getProducts(req, res);
   }
 
+  async searchProduct(req: Request, res: Response): Promise<Response> {
+    return await ProductService.searchProduct(req, res);
+  }
+
   async getproductByCategory(req: Request, res: Response): Promise<Response> {
     return await ProductService.getproductByCategory(req, res);
   }

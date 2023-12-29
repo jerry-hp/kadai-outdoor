@@ -7,6 +7,7 @@ const router = express.Router();
 const UploadMiddleWare = new FileUpload("product_image");
 
 router.get("/products", ProductController.getProducts);
+router.get("/products/search", ProductController.searchProduct);
 router.get("/product/:category", ProductController.getproductByCategory);
 router.get("/products/:id", ProductController.getProductById);
 router.post("/product", UploadMiddleWare.handleUpload.bind(UploadMiddleWare), ProductController.createProduct);

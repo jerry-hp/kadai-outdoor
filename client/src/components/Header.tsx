@@ -13,7 +13,7 @@ import { BsThreeDotsVertical } from "react-icons/bs";
 import useWishList from "../hooks/useWishList";
 
 function Header() {
-  const { user, showCart, setShowCart, userID, data } = useHeader();
+  const { user, showCart, setShowCart, userID, data, handleChangeSearch, handleClickSearch } = useHeader();
   const [isOpenWishLish, setIsOpenWishLish] = useState(false);
   const [isOpenNotif, setIsOpenNotif] = useState(false);
   const { wistList } = useWishList();
@@ -25,9 +25,9 @@ function Header() {
       <div className="mx-auto max-w-6xl flex flex-row justify-between items-center shadow-2xl">
         <img src={logo} alt="logo" className="w-28 sm:w-40" />
         {userID && (
-          <div className="flex flex-row items-center bg-[#EEF4ED] p-1 rounded-lg w-30 sm:w-96">
-            <input className="bg-transparent outline-none w-full" type="text" placeholder="Search products" />
-            <FaSearch className="text-[#0B2545] cursor-pointer" />
+          <div className="flex flex-row items-center bg-[#EEF4ED] p-1 rounded-lg w-30 sm:w-64 lg:w-96">
+            <input onChange={handleChangeSearch} className="bg-transparent outline-none w-full" type="text" placeholder="Search products" />
+            <FaSearch onClick={handleClickSearch} className="text-[#0B2545] cursor-pointer" />
           </div>
         )}
         <ul className="hidden sm:flex flex-row items-center gap-4">

@@ -1,4 +1,4 @@
-import { DeepPartial, Repository } from "typeorm";
+import { DeepPartial, ILike, Like, Repository } from "typeorm";
 import { Product } from "../entities/product";
 import { AppDataSource } from "../data-source";
 import { Request, Response } from "express";
@@ -45,6 +45,21 @@ export default new (class ProductRepository {
     }
   }
 
+  async searchProduct(req: Request, res: Response): Promise<Response> {
+    try {
+      const { keyword } = req.query;
+      
+      const products = await this.productRepository.find({
+        where: [{ product_name: ILike(`%${keyword}%`) }, { product_brand: ILike(`%${keyword}%`) }, { product_category: ILike(`%${keyword}%`) }, { product_description: ILike(`%${keyword}%`) }],
+        relations: ["product_size"],
+      });
+
+      console.log({ products });
+      return res.status(200).json({ products });
+    } catch (error) {
+      return res.status(500).json({ error });
+    }
+  }
   async createProduct(req: Request, res: Response): Promise<Response> {
     try {
       const { product_name, product_brand, product_category, product_price, product_description, product_size } = req.body;

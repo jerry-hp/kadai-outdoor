@@ -19,6 +19,8 @@ import Transaction from "./admin/Transaction";
 import NavbarBottom from "./components/NavbarBottom";
 import Cart from "./pages/CartPage";
 import WishListPage from "./pages/WishListPage";
+import Footer from "./components/Footer";
+import SearchPage from "./pages/SearchPage";
 
 const queryClient = new QueryClient();
 function App() {
@@ -36,6 +38,7 @@ function App() {
                       <>
                         <Header />
                         <Home />
+                        <Footer />
                         <NavbarBottom />
                       </>
                     }
@@ -46,6 +49,7 @@ function App() {
                       <>
                         <Header />
                         <FilterProducts />
+                        <Footer />
                         <NavbarBottom />
                       </>
                     }
@@ -53,9 +57,21 @@ function App() {
                   <Route
                     path="/detail-product/:id"
                     element={
-                      <>
+                      <div>
                         <Header />
                         <DetailProduct />
+                        <Footer />
+                        <NavbarBottom />
+                      </div>
+                    }
+                  />
+                  <Route
+                    path="/search/:keyword"
+                    element={
+                      <>
+                        <Header />
+                        <SearchPage />
+                        <Footer />
                         <NavbarBottom />
                       </>
                     }
@@ -82,6 +98,7 @@ function App() {
                       <>
                         <Header />
                         <Profile />
+                        <Footer />
                         <NavbarBottom />
                       </>
                     }

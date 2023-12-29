@@ -30,7 +30,7 @@ function Home() {
       ) : (
         <div>
           {/* filter card */}
-          <div className="m-2 sm:m-0  sm:my-3 flex flex-wrap justify-between sm:gap-2">
+          <div className="m-2 sm:m-2 lg:m-0  sm:my-3 flex flex-wrap justify-between sm:gap-2">
             <div onClick={() => goToProductFilter("clothes")} className=" text-[#0B2545] w-[15%] h-max sm:w-[15%] py-2 sm:py-3 bg-[RGBA(255,255,255,0.1)] rounded-lg cursor-pointer">
               <RiShirtFill className="mx-auto text-3xl sm:text-5xl" />
               <p className="hidden sm:block font-normal sm:font-bold text-center">Clothes</p>
@@ -57,23 +57,23 @@ function Home() {
             </div>
           </div>
           {/* imageSlider */}
-          <div className="m-2 sm:m-0">
+          <div className="m-2 lg:m-0">
             <ImageSlider />
           </div>
           {/* all products  title*/}
-          <div className="m-2 sm:m-0 text-[#0B2545] text:lg sm:text-xl font-bold my-1 sm:my-2">ALL PRODUCTS</div>
+          <div className="m-2 lg:m-0 text-[#0B2545] text:lg sm:text-xl font-bold my-1 sm:my-2">ALL PRODUCTS</div>
           {/* all products buttons */}
-          <button onClick={() => setIsMen(true)} style={{ borderBottomColor: isMen ? "#0B2545" : "", borderBottomWidth: isMen ? "2px" : "", color: isMen ? "#0B2545" : "#0B2545" }} className={`mx-2 sm:m-0 font-bold px-4`}>
+          <button onClick={() => setIsMen(true)} style={{ borderBottomColor: isMen ? "#0B2545" : "", borderBottomWidth: isMen ? "2px" : "", color: isMen ? "#0B2545" : "#0B2545" }} className={`mx-2 lg:m-0 font-bold px-4`}>
             Men
           </button>
           <button onClick={() => setIsMen(false)} style={{ borderBottomColor: !isMen ? "#0B2545" : "", borderBottomWidth: !isMen ? "2px" : "", color: !isMen ? "#0B2545" : "#0B2545" }} className=" font-bold px-4 ">
             Women
           </button>
           {/* all products card */}
-          <div className="mx-2 sm:mx-0 my-1 sm:my-3 flex justify-between gap-2 flex-wrap">
+          <div className="mx-2 lg:mx-0 my-1 lg:my-3 flex justify-between gap-2 flex-wrap">
             {products &&
               products.map((item: product, index: number) => (
-                <div key={index} onClick={() => goToProductDetail(String(item.id))} className="relative w-[48%] sm:w-[23%] shadow-[0_0px_5px_0_rgba(0,0,0,0.2)] rounded-[6px] hover:scale-110 cursor-pointer">
+                <div key={index} onClick={() => goToProductDetail(String(item.id))} className="relative w-[48%] sm:w-[30%] lg:w-[23%] shadow-[0_0px_5px_0_rgba(0,0,0,0.2)] rounded-[6px] hover:scale-110 cursor-pointer">
                   <img src={item.product_image} alt="" className="w-full rounded-[6px_6px_0_0] h-[200px]" />
                   <p className="text-[#0B2545] text-[14px] font-semibold whitespace-nowrap overflow-hidden text-ellipsis box-border p-1">{item.product_name}</p>
                   <div className="flex justify-between items-center box-border p-1">
